@@ -32,6 +32,6 @@
     "eslint": "^5.16.0"
   },
   "scripts": {
-  "start": "bot.js"
+  "start": " node bot.js"
 }
 }
