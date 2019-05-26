@@ -3,7 +3,7 @@ const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
 const token = process.env.token;
-
+// var port = process.env.PORT || 8080;
 const fs = require('fs');
 const Q = require('q');
 let status = "With razzmann's pp";
