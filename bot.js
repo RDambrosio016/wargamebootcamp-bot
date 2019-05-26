@@ -176,7 +176,7 @@ break;
     if(matchingUnits.length > limit) {      //if the amount of matching units is greater than the limit
       const matching = [];
       message.reply(allArgs + ' is included in ' + matchingUnits.length +  ' units, please be more specific or use !gitspec - limit: ' + limit);
-      if (matchingUnits.length > 20) {
+      if (matchingUnits.length > limitdisplay) {
         message.reply('Matching units are too many, could not display list');       //if the matching units are greater than the display limit, return (anti spam)
         return;
       }
