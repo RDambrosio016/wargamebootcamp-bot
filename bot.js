@@ -186,7 +186,7 @@ break;
       });
         message.channel.send('Units that match ' + allArgs + ': ' + matching.join(''));   //send the array "matching", using nothing as a delimiter (gets rid of commas)
         matching = [];
-        console.log(err);
+      
         return;
     }
 
