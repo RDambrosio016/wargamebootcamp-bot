@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
-const { mongooseToken, token, prefix } = require('./config.json');
+// const { mongooseToken, token, prefix } = require('./config.json');
 const client = new Discord.Client();
+const token = process.env.token;
 
 const fs = require('fs');
 const Q = require('q');
