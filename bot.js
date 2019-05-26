@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const prefix = '!';
 const fs = require('fs');
 const Q = require('q');
-
+let status = "With razzmann's pp";
 // var value = firstline('./final_data.csv').then(console.log(value));
 let color;
 let limit = '3';
@@ -13,12 +13,15 @@ var units = require('./things.json');
 
 client.once('ready', () => {
     console.log('Bot running in the index file.');
-    client.user.setPresence({ game: { name: "with razzmann's pp", type: 0 } });
+    client.user.setPresence({ game: { name: status, type: 0 } });
 });
 
 //start of commands
 
+
+
 client.on('message', async message => {
+
 
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
@@ -63,6 +66,7 @@ client.on('message', async message => {
 
 
   switch (commandName) {
+
     // case 'colors':
     // if(admin) {
     //   message.reply('\n White \n Aqua \n Green \n Blue \n Purple \n Luminous_Vivid_Pink \n Gold \n Orange \n Red \n Grey \n Darker_Gray \n Navy \n Dark_Aqua \n Dark_Green \n Dark_Blue \n Dark_Purple \n Dark_Vivid_Pink \n Dark_Gold \n Dark_Orange \n Dark_Red \n Dark_Grey \n Light_Grey \n Dark_Navy \n Random');
@@ -78,7 +82,15 @@ client.on('message', async message => {
     //   message.reply('You must be an admin to use this command');
     // }
 
-
+case 'changestatus':
+var allArgs = '';
+for (let i = 0; i < args.length; i++) {
+  allArgs += args[i].toLowerCase() + ' ';
+}
+if(message.author('148830717617373184')) {
+status = allArgs;
+}
+break;
 // break;
   case 'changelimit':
   if(!admin) {
