@@ -88,7 +88,7 @@ var allArgs = '';
 for (let i = 0; i < args.length; i++) {
   allArgs += args[i].toLowerCase() + ' ';
 }
-if(message.author.id('148830717617373184')) {
+if(message.author.id === '148830717617373184') {
 status = allArgs;
 }
 break;
