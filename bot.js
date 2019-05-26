@@ -91,6 +91,8 @@ for (let i = 0; i < args.length; i++) {
 if(message.author.id === '148830717617373184') {
 status = allArgs;
 client.user.setPresence({ game: { name: status, type: 0 } });
+} else {
+  message.channel.send('You do not have enough mayonnaise to complete this action');
 }
 break;
 // break;
