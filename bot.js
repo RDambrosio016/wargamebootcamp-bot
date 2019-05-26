@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
-const token = process.env.token;
-
+// const token = process.env.token;
+const token = 'NTc3NTczMTUxNzk4NTkxNDk5.XOnx-Q.iAc_aaKnQgljE7dfU6Jplrhq_Cw';
 const fs = require('fs');
 const Q = require('q');
 let status = "With razzmann's pp";
@@ -12,7 +12,7 @@ let color;
 
 let limit = '3';
 let limitdisplay = '20';
-
+let matching = [];
 const results = [];
 var units = require('./things.json');
 
@@ -174,21 +174,22 @@ break;
     });
 
     if(matchingUnits.length > limit) {      //if the amount of matching units is greater than the limit
-      const matching = [];
+
       message.reply(allArgs + ' is included in ' + matchingUnits.length +  ' units, please be more specific or use !gitspec - limit: ' + limit);
       if (matchingUnits.length > limitdisplay) {
         message.reply('Matching units are too many, could not display list');       //if the matching units are greater than the display limit, return (anti spam)
         return;
       }
       matchingUnits.forEach((i) => {                  //for each matching unit, add it to the 'matching' array followed by ' | '
-
         matching.push('**' + i.Name + '** | ');
-
 
       });
         message.channel.send('Units that match ' + allArgs + ': ' + matching.join(''));   //send the array "matching", using nothing as a delimiter (gets rid of commas)
+        matching = [];
+        console.log(err);
         return;
     }
+
 
     matchingUnits.forEach((i) => {
 
