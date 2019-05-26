@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
-// const token = process.env.token;
-const token = 'NTc3NTczMTUxNzk4NTkxNDk5.XOnx-Q.iAc_aaKnQgljE7dfU6Jplrhq_Cw';
+const token = process.env.token;
+
 const fs = require('fs');
 const Q = require('q');
 let status = "With razzmann's pp";
@@ -186,7 +186,7 @@ break;
       });
         message.channel.send('Units that match ' + allArgs + ': ' + matching.join(''));   //send the array "matching", using nothing as a delimiter (gets rid of commas)
         matching = [];
-      
+
         return;
     }
 
