@@ -282,7 +282,6 @@ const embed = new Discord.RichEmbed()
 
 
 
-
     // the GIT SPECIAL COMMAND
 
 
