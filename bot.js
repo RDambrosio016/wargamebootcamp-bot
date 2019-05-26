@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
+const token = process.env.token;
 const fs = require('fs');
 const Q = require('q');
 let status = "With razzmann's pp";
