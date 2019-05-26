@@ -1,13 +1,9 @@
 const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
-// const { mongooseToken, token, prefix } = require('./config.json');
 const client = new Discord.Client();
 const prefix = '!';
-const token = process.env.token;
-
 const fs = require('fs');
 const Q = require('q');
-
 
 // var value = firstline('./final_data.csv').then(console.log(value));
 let color;
@@ -20,8 +16,6 @@ client.once('ready', () => {
     client.user.setPresence({ game: { name: "with razzmann's pp", type: 0 } });
 });
 
-
-
 //start of commands
 
 client.on('message', async message => {
@@ -29,7 +23,6 @@ client.on('message', async message => {
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
   }
-
 
   if (!message.guild) { //If the message is sent via DMs.
   message.reply('Please do not message this bot in DMs.');
@@ -56,9 +49,6 @@ client.on('message', async message => {
     admin = false;
   }
 
-  //commands start here
-
-
 
   if (commandName === 'checkadmin') {
     message.reply(admin ? 'You have the power.' : 'You do not have anough power, mortal.');
@@ -67,11 +57,6 @@ client.on('message', async message => {
   if (commandName === 'ping') {
     message.reply('pong');
   }
-
-
-
-
-
 
 
     // write commands below this line ---------------------------------------------------
@@ -248,13 +233,6 @@ message.channel.send(embed);
     }
 break;
 
-
-
-            // if there are more than 5 units, return (anti spam)
-
-
-
-
     // the GIT SPECIAL COMMAND
 
 
@@ -284,79 +262,93 @@ break;
          else {
               matchingUnits2.forEach((i) => {
 
+        const redfor = {
+          "Poland":":flag_pl:",
+          'Czechoslavakia': ':flag_cz:',
+          'Soviet Union':'<:flag_sr:581691631523069952>',
+          'Yugoslavia':'<:emote:581895502568620110>',
+          'Finland':':flag_fi:',
+          'East Germany':'<:unknown:581897376000638996>',
+          'China':':flag_cn',
+          'North Korea':'<:download:581897628959375372>',
+
+        };
+
+        const blufor = {
+          "France":":flag_fr:",
+          'Canada':':flag_ca:',
+          'Sweden':':flag_se:',
+          'The Netherlands':':flag_nl:',
+          'ANZAC':':flag_au:',
+          'Israel':':flag_il:',
+          'United Kingdom':':flag_gb:',
+          'Japan':':flag_jp:',
+          'United States':':flag_us:',
+          'West Germany':':flag_de:',
+          'Denmark':':flag_dk:',
+          'South Korea':'kr',
+          'Norway':':flag_no:',
+
+        };
+
+        if(blufor.hasOwnProperty(i.MotherCountry)) {
+            i.MotherCountry = blufor[i.MotherCountry];
+            color = "BLUE";
+        } else if(redfor.hasOwnProperty(i.MotherCountry)) {
+            i.MotherCountry = redfor[i.MotherCountry];
+            color = "RED";
+        }
 
 
 
 
-                              if(i.MotherCountry === 'Poland') { i.MotherCountry = ':flag_pl:';}
-                              else if (i.MotherCountry === 'Czechoslavakia') { i.MotherCountry = ':flag_cz:';}
-                              else if (i.MotherCountry === 'Soviet Union') { i.MotherCountry = '<:flag_sr:581691631523069952>';}
-                              else if (i.MotherCountry === 'France') { i.MotherCountry = ':flag_fr:';}
-                              else if (i.MotherCountry === 'Canada') { i.MotherCountry = ':flag_ca:';}
-                              else if (i.MotherCountry === 'Sweden') { i.MotherCountry = ':flag_se:';}
-                              else if (i.MotherCountry === 'The Netherlands') {i.MotherCountry = ':flag_nl:';}
-                              else if (i.MotherCountry === 'ANZAC') { i.MotherCountry = ':flag_au:';}
-                              else if (i.MotherCountry === 'Israel') { i.MotherCountry = ':flag_il:';}
-                              else if (i.MotherCountry === 'United Kingdom') { i.MotherCountry = ':flag_gb:';}
-                              else if (i.MotherCountry === 'Yugoslavia') { i.MotherCountry = '<:emote:581895502568620110>';}
-                              else if (i.MotherCountry === 'Finland') { i.MotherCountry = ':flag_fi:';}
-                              else if (i.MotherCountry === 'East Germany') { i.MotherCountry = '<:unknown:581897376000638996>';}
-                              else if (i.MotherCountry === 'China') { i.MotherCountry = ':flag_cn:';}
-                              else if (i.MotherCountry === 'North Korea') { i.MotherCountry = '<:download:581897628959375372>';}
-                              else if (i.MotherCountry === 'China') { i.MotherCountry = ':flag_cn:';}
-                              else if (i.MotherCountry === 'Japan') { i.MotherCountry = ':flag_jp:';}
-                              else if (i.MotherCountry === 'United States') { i.MotherCountry = ':flag_us:';}
-                              else if (i.MotherCountry === 'West Germany') { i.MotherCountry = ':flag_de:';}
-                              else if (i.MotherCountry === 'Denmark') { i.MotherCountry = ':flag_dk:';}
-                              else if (i.MotherCountry === 'South Korea') { i.MotherCountry = ':flag_kr:';}
-                              else if (i.MotherCountry === 'Norway') { i.MotherCountry = ':flag_no:';}
+      let dash = ' - ';
+      if(i.Weapon1RangeGroundMinimum === '') {dash = '';}
+      let dash2 = ' - ';
+      if(i.Weapon1RangeHelicoptersMinimum === '') {dash2 = '';}
 
 
+      if(i.Tab === 'SUP') {
+          if(i.ArmorFrontSplashResistant ===  'True') {
+                i.ArmorFront = '0';
+      }  if(i.ArmorSidesSplashResistant ===  'True') {
+              i.ArmorSides = '0';
+      }  if(i.ArmorRearSplashResistant ===  'True') {
+                i.ArmorRear = '0';
+      } if(i.ArmorTopSplashResistant ===  'True') {
+                i.ArmorTop = '0';
+      }
+      let proto;
+      if(i.IsPrototype.toLowerCase() === 'false') {
+          proto = '**Not prototype**';
+      }
+      else if (i.IsPrototype.toLowerCase() === 'true') {
+       proto = '**Prototype**';
+      }
 
+      const supply = Math.trunc(i.Weapon1SupplyCost / i.Weapon1ShotsPerSalvo);
 
-                              if(i.Tab === 'SUP') {
-                                  if(i.ArmorFrontSplashResistant ===  'True') {
-                                        i.ArmorFront = '0';
-                              }  if(i.ArmorSidesSplashResistant ===  'True') {
-                                      i.ArmorSides = '0';
-                              }  if(i.ArmorRearSplashResistant ===  'True') {
-                                        i.ArmorRear = '0';
-                              } if(i.ArmorTopSplashResistant ===  'True') {
-                                        i.ArmorTop = '0';
-                              }
-                              let proto;
-                              if(i.IsPrototype.toLowerCase() === 'false') {
-                                  proto = '**Not prototype**';
-                              }
-                              else if (i.IsPrototype.toLowerCase() === 'true') {
-                               proto = '**Prototype**';
-                              }
-                              i.Weapon1DisplayedAmmunition = i.Weapon1DisplayedAmmunition.substring(0, i.Weapon1DisplayedAmmunition.length - 1);
-                              i.MaxSpeed = i.MaxSpeed.substring(0, i.MaxSpeed.length - 1);
-                              i.MaxAcceleration = i.MaxAcceleration.substring(0, i.MaxAcceleration.length - 1);
+      let weapon2 = ('**Weapon 1**: ' + i.Weapon2Name + ', ' + i.Weapon2Caliber + ' x' + Math.trunc(i.Weapon2DisplayedAmmunition) + ', **' + i.Weapon2Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon2RangeGround) + dash + Math.trunc(i.Weapon2RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon2RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon2RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon2DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon2DispersionAtMaxRange) + ' | **AP Power**: ' + Math.trunc(i.Weapon2AP) + ' | **HE Power**: ' + Math.trunc(i.Weapon2HE) + ' | **Salvo**: ' + Math.trunc(i.Weapon2ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon2SupplyCost) + ' per salvo');
+      if(i.Weapon2Name == '') { weapon2 = 'None';}
+      let weapon3 = ('**Weapon 1**: ' + i.Weapon3Name + ', ' + i.Weapon3Caliber + ' x' + Math.trunc(i.Weapon3DisplayedAmmunition) + ', **' + i.Weapon3Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon3RangeGround) + dash + Math.trunc(i.Weapon3RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon3RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon3RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon3DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon3DispersionAtMaxRange) + ' | **AP Power**: ' + Math.trunc(i.Weapon3AP) + ' | **HE Power**: ' + Math.trunc(i.Weapon3HE) + ' | **Salvo**: ' + Math.trunc(i.Weapon3ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon3SupplyCost) + ' per salvo');
+      if(i.Weapon3Name == '') { weapon3 = 'None';}
+  const embed = new Discord.RichEmbed()
+    .setTitle('**' + i.Name.toUpperCase() + '**')
+    .setDescription('**Price**:' + i.Price +  ' | **Armor: ** Front: ' + i.ArmorFront + ' | Sides: ' + i.ArmorSides + ' | Rear: ' + i.ArmorRear + ' | Top: ' + i.ArmorTop)
+    .setColor(color)
+    .addField('**Category**', '**Support Tab** | **Nationality**: ' + i.MotherCountry + ' | ' + proto)
+    .addField('**Movement**', '**Type**: ' + i.MovementType + ' | **Offroad Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph')
+    .addField('**Availability**', i.RookieDeployableAmount + '/ ' + i.TrainedDeployableAmount + '/ ' + i.HardenedDeployableAmount + '/ ' + i.VeteranDeployableAmount + '/ ' + i.EliteDeployableAmount)
+    .addField('**Weapon 1 ( ' + i.Weapon1Type + ')**', '**Weapon 1**: ' + i.Weapon1Name + ', ' + i.Weapon1Caliber + ' x' + Math.trunc(i.Weapon1DisplayedAmmunition) + ', **' + i.Weapon1Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon1RangeGround) + dash + Math.trunc(i.Weapon1RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon1RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon1RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon1DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon1DispersionAtMaxRange) + ' | **AP Power**: ' + Math.trunc(i.Weapon1AP) + ' | **HE Power**: ' + Math.trunc(i.Weapon1HE) + ' | **Salvo**: ' + Math.trunc(i.Weapon1ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon1SupplyCost) + ' per salvo', true)
+    .addField('**Weapon 2 ( ' + i.Weapon2Type + ')**', weapon2)
+    .addField('**Weapon 3 ( ' + i.Weapon3Type + ')**', weapon3);
 
+  message.channel.send(embed);
 
-                              //Stuff that is actually displayed
-
-                          const embed = new Discord.RichEmbed()
-                            .setTitle('**' + i.Name.toUpperCase() + '**')
-                            .setDescription('**Price**:' + i.Price +  ' | **Armor: ** Front: ' + i.ArmorFront + ' | Sides: ' + i.ArmorSides + ' | Rear: ' + i.ArmorRear + ' | Top: ' + i.ArmorTop)
-                            .setColor(color)
-                            .addField('**Category**', '**Support Tab** | **Nationality**: ' + i.MotherCountry + ' | ' + proto)
-                            .addField('**Movement**', '**Type**: ' + i.MovementType + ' | **Offroad Speed**: ' + i.MaxSpeed + 'kph | **Max Acceleration**: ' + i.MaxAcceleration)
-                            .addField('**Availability**', i.RookieDeployableAmount + '/ ' + i.TrainedDeployableAmount + '/ ' + i.HardenedDeployableAmount + '/ ' + i.VeteranDeployableAmount + '/ ' + i.EliteDeployableAmount)
-                            .addField('**Armament**', '**Weapon 1**: ' + i.Weapon1Name + ', ' + i.Weapon1Caliber + ' x' + i.Weapon1DisplayedAmmunition + ', **' + i.Weapon1Tags + '** | ');
-
-
-                          message.channel.send(embed);
-                        }
-
-                      });
-                    }
-                    break;
-
-
-// ---------------------------------------------- end of arty group
+  }
+          });
+      }
+  break;
 
       case 'rookie':
         if (!message.member.roles.has('579034768243425346')) {
