@@ -207,7 +207,7 @@ break;
     if(i.Weapon1RangeHelicoptersMinimum === '') {dash2 = '';}
 
 
-    if(i.Tab === 'SUP') {
+    
         if(i.ArmorFrontSplashResistant ===  'True') {
               i.ArmorFront = '0';
     }  if(i.ArmorSidesSplashResistant ===  'True') {
@@ -244,7 +244,7 @@ const embed = new Discord.RichEmbed()
 
 message.channel.send(embed);
 
-}
+
         });
     }
 break;
