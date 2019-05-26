@@ -90,6 +90,7 @@ for (let i = 0; i < args.length; i++) {
 }
 if(message.author.id === '148830717617373184') {
 status = allArgs;
+client.user.setPresence({ game: { name: status, type: 0 } });
 }
 break;
 // break;
