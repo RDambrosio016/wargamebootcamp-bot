@@ -1,0 +1,34 @@
+{
+  "name": "duck-bot",
+  "version": "1.0.0",
+  "description": "Useless, maybe kinda useful bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "duck",
+    "bot"
+  ],
+  "author": "Senor Dickweed",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^4.4.1",
+    "csv-parser": "^2.3.0",
+    "discord.js": "^11.5.0",
+    "firstline": "^2.0.2",
+    "fs": "0.0.1-security",
+    "jsonfile": "^5.0.0",
+    "mongoose": "^5.5.9",
+    "node-fetch": "^2.6.0",
+    "papaparse": "^4.6.3",
+    "q": "^1.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
