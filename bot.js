@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
-
+const token = process.env.token;
 
 const fs = require('fs');
 const Q = require('q');
@@ -176,22 +176,24 @@ break;
     });
 
     if(matchingUnits.length > limit) {
-        message.reply('test1');
+        message.reply(allArgs.toUpperCase() + 'is included in' + matchingUnits.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
+
         if(matchingUnits.length < 25) {
           const matching = [];
           matchingUnits.forEach((i) => {
-            matching.push(i.Name);
+            matching.push('**' + i.Name + '** | ');
           });
-          message.reply(matching);
-          console.log(matching);
-          return;
-        } else {
-          return;
+          message.reply(matching.join(''));
+
+
         }
+        return;
+
     }
 
 
     matchingUnits.forEach((i) => {
+
 
       const redfor = {
         "Poland":":flag_pl:",
@@ -240,14 +242,15 @@ break;
 
 
 
-        if(i.ArmorFrontSplashResistant ===  'True') {
-              i.ArmorFront = '0';
-    }  if(i.ArmorSidesSplashResistant ===  'True') {
-            i.ArmorSides = '0';
-    }  if(i.ArmorRearSplashResistant ===  'True') {
-              i.ArmorRear = '0';
-    } if(i.ArmorTopSplashResistant ===  'True') {
-              i.ArmorTop = '0';
+    //     if(i.ArmorFrontSplashResistant ===  'True') {
+    //           i.ArmorFront = '0';
+    // }  if(i.ArmorSidesSplashResistant ===  'True') {
+    //         i.ArmorSides = '0';
+    // }  if(i.ArmorRearSplashResistant ===  'True') {
+    //           i.ArmorRear = '0';
+    // } if(i.ArmorTopSplashResistant ===  'True') {
+    //           i.ArmorTop = '0';
+  //}
 
     let proto;
     if(i.IsPrototype.toLowerCase() === 'false') {
@@ -276,7 +279,7 @@ const embed = new Discord.RichEmbed()
 
           message.channel.send(embed);
 
-          }
+
       });
 
   break;
