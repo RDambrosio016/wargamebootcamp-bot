@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
-const token = process.env.token;
-// var port = process.env.PORT || 8080;
+
+
 const fs = require('fs');
 const Q = require('q');
 let status = "With razzmann's pp";
@@ -11,10 +11,12 @@ let status = "With razzmann's pp";
 let color;
 
 let limit = '3';
-let limitdisplay = '20';
-let matching = [];
+// let limitdisplay = '20';
+
 const results = [];
 var units = require('./things.json');
+
+
 
 client.once('ready', () => {
     console.log('Bot running in the index file.');
@@ -108,20 +110,20 @@ break;
 
 //same as !changelimit but changes the limit of matching units displayed in the list
 
-  case 'changedisplaylimit':
-  if(!admin) {
-    message.reply('You must be an admin to use this command');
-  }
- else if (admin) {
-   if (!isNaN(args[0])) {
-     limitdisplay = args[0];
-     message.channel.send('Changed display limit to ' + limitdisplay);
-   } else if (isNaN(args[0])) {
-     message.channel.send('Please use a valid number');     // if args[0] is not a number, throw out args 0 and return this
-
-   }
-  }
-  break;
+ //  case 'changedisplaylimit':
+ //  if(!admin) {
+ //    message.reply('You must be an admin to use this command');
+ //  }
+ // else if (admin) {
+ //   if (!isNaN(args[0])) {
+ //     limitdisplay = args[0];
+ //     message.channel.send('Changed display limit to ' + limitdisplay);
+ //   } else if (isNaN(args[0])) {
+ //     message.channel.send('Please use a valid number');     // if args[0] is not a number, throw out args 0 and return this
+ //
+ //   }
+ //  }
+ //  break;
 
 // displays the unit limit
 
@@ -130,9 +132,9 @@ break;
   break;
 // displays the list limit
 
-  case 'limitdisplay':
-  message.reply(limitdisplay);
-  break;
+  // case 'limitdisplay':
+  // message.reply(limitdisplay);
+  // break;
 
 
     case 'flip':
@@ -173,21 +175,19 @@ break;
       }
     });
 
-    if(matchingUnits.length > limit) {      //if the amount of matching units is greater than the limit
-
-      message.reply(allArgs + ' is included in ' + matchingUnits.length +  ' units, please be more specific or use !gitspec - limit: ' + limit);
-      if (matchingUnits.length > limitdisplay) {
-        message.reply('Matching units are too many, could not display list');       //if the matching units are greater than the display limit, return (anti spam)
-        return;
-      }
-      matchingUnits.forEach((i) => {                  //for each matching unit, add it to the 'matching' array followed by ' | '
-        matching.push('**' + i.Name + '** | ');
-
-      });
-        message.channel.send('Units that match ' + allArgs + ': ' + matching.join(''));   //send the array "matching", using nothing as a delimiter (gets rid of commas)
-        matching = [];
-
-        return;
+    if(matchingUnits.length > limit) {
+        message.reply('test1');
+        if(matchingUnits.length < 25) {
+          const matching = [];
+          matchingUnits.forEach((i) => {
+            matching.push(i.Name);
+          });
+          message.reply(matching);
+          console.log(matching);
+          return;
+        } else {
+          return;
+        }
     }
 
 
