@@ -176,7 +176,7 @@ break;
     });
 
     if(matchingUnits.length > limit) {
-        message.reply(allArgs.toUpperCase() + 'is included in' + matchingUnits.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
+        message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
 
         if(matchingUnits.length < 25) {
           const matching = [];
@@ -186,6 +186,8 @@ break;
           message.reply(matching.join(''));
 
 
+        } else if (matchingUnits.length > 25) {
+          message.reply('Too many matching units to display list');
         }
         return;
 
