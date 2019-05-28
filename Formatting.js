@@ -116,7 +116,7 @@ const embed = new Discord.RichEmbed()
   .setColor(color)
 
 
-  .addField('**Category**', '**Support Tab** | **Nationality**: ' + i.MotherCountry + ' | ' + proto)
+  .addField('**Category**', '**TAB**: ' + i.Tab + '| **Nationality**: ' + i.MotherCountry + ' | ' + proto)
 
   .addField('**Movement**', '**Type**: ' + i.MovementType + ' | **Offroad Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph')
 
