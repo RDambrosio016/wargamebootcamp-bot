@@ -8,15 +8,25 @@ const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
 let status = "With razzmann's pp";
-// var value = firstline('./final_data.csv').then(console.log(value));
+const csv = require('csv-parser');
 let color;
 let displaylimit = '20';
 let limit = '3';
 // let limitdisplay = '20';
 
 const results = [];
-var units = require('./things.json');
+var units = require('./Data.json');
 
+// fs.createReadStream('./UnitData.csv')
+//   .pipe(csv())
+//   .on('data', (data) => results.push(data))
+//   .on('end', () => {
+//
+//     fs.writeFile('./Data.json', JSON.stringify(results), function(err) {
+//     if (err) throw err;
+//     console.log('Replaced!');
+//     });
+//   });
 
 
 client.once('ready', () => {
@@ -24,8 +34,22 @@ client.once('ready', () => {
     client.user.setPresence({ game: { name: status, type: 0 } });      //sets the bot's status to the default status
 });
 
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+
 //start of commands
 
+let nospaceunits = [];
+
+for(let i = 0; i < units.length; i++) {
+  units[i].Name = units[i].Name.replaceAll("'", '');
+  units[i].Name = units[i].Name.replaceAll("-", ' ');
+  units[i].Name = units[i].Name.replaceAll(" ", '');
+}
 
 
 client.on('message', async message => {
@@ -135,11 +159,11 @@ break;
   case 'limit':
   message.reply(limit);
   break;
-// displays the list limit
 
-  // case 'limitdisplay':
-  // message.reply(limitdisplay);
-  // break;
+
+  case 'displaylimit':
+  message.reply(displaylimit);
+  break;
 
 
     case 'flip':
@@ -166,11 +190,15 @@ break;
     }
 
     allArgs = allArgs.substring(0, allArgs.length - 1);     //the previous function prints a space after allArgs, using substring(), delete it
+    allArgs = allArgs.toLowerCase();
+    allArgs = allArgs.replaceAll('-', ' ');
+    allArgs = allArgs.replaceAll(' ', '');
     console.log('"' + allArgs + '"');
     if(allArgs === ' ' || allArgs === '') {
       message.reply('Please use a valid unit');     //if the user does !git <space> or !git, return and reply this.
       return;
     }
+
 
 
   const matchingUnits = units.filter((i, index) =>{       //make matchingUnits into a filter of units
@@ -179,6 +207,10 @@ break;
         return i;
       }
     });
+
+    if (matchingUnits.length === 0) {
+      message.reply('No units matched with the name ' + allArgs);
+    }
 
     if(matchingUnits.length > limit) {
         message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
@@ -219,19 +251,28 @@ message.channel.send(send);
     for (let i = 0; i < args.length; i++) {
       allArgs += args[i].toLowerCase() + ' ';
     }
-        allArgs = allArgs.substring(0, allArgs.length - 1);
-        console.log('"' + allArgs + '"');
-        if(allArgs === ' ' || allArgs === '') {
-          message.reply('Please use a valid unit');
-          return;
-        }
+
+    allArgs = allArgs.substring(0, allArgs.length - 1);
+    allArgs = allArgs.toLowerCase();
+    allArgs = allArgs.replaceAll('-', ' ');
+    console.log('"' + allArgs + '"');
+    if(allArgs === ' ' || allArgs === '') {
+      message.reply('Please use a valid unit');
+      return;
+    }
+
+
 
         const matchingUnits2 = units.filter((i, index) =>{
               const unit = i.Name.toLowerCase();
-              if(unit === allArgs) {
+              if(unit == allArgs) {
                 return i;
               }
             });
+
+            if (matchingUnits2.length === 0) {
+              message.reply('No units matched with the name ' + allArgs);
+            }
 
             if(matchingUnits2.length > limit) {
                 message.reply(allArgs + ' is included in too many units, please be more specific or use !gitspec - limit: ' + limit);
@@ -242,7 +283,7 @@ message.channel.send(send);
                 const send = format.formatting(i);
                 message.channel.send(send);
 
-  
+
           });
       }
   break;
@@ -266,6 +307,14 @@ message.channel.send(send);
           message.member.removeRole('579042113803649035');
           message.reply('Successfully removed lfg role!');
       }
+      break;
+      case 'info':
+      const embed = new Discord.RichEmbed()
+      .setColor('GOLD')
+      .setTitle('**Bootcamp/ Armory bot**')
+      .setDescription('A bot developed by senorDickweed#7033 for the r/wargamebootcamp server, offers common commands and unit search functions, coded in discord.js, **for commands use !help**')
+      .addField('Acknowledgements', '1: **Tyrnek#2495** for letting me do this lol \n 2: **Lawlzer#4013** for helping a lot on the code \n 3: **Mbetts#9468** for helping me a lot on the formatting and the code \n 4: **Phlogis#9776** for helping with the data aspect of the units \n 5: **everyone** on the testing server that helped me test the bot');
+      message.channel.send(embed);
       break;
       case 'unspecguide':
       message.reply('Here is the beginner unspec deck building guide: https://www.reddit.com/r/wargamebootcamp/comments/5m0wmz/meta_a_guide_to_unspec_deckbuilding/');
@@ -302,7 +351,7 @@ message.channel.send(send);
       break;
       case 'commands':
       case 'help':
-      message.reply("**!rookie** - Gives you the rookie role \n **!lfg** - Adds you to the looking for game pool \n **!unspecguide** - A great beginner deck building guide \n **!specprimer** - A great primer to spec decks and how to counter them \n **!honguide** - A great beginner's guide to wargame \n **!razzguide** - Razzmann's video wargame guides \n **!keyvalues** - Values worth remembering  \n **!armorytool** - A great tool for viewing hidden unit stats \n **!replayfolder** - Where game replays are stored \n **!rof** - A great Rate of Fire cheatsheet \n **!bling** - How to get colors and tags in wargame \n **!progression** - Reccomended progression guide for beginners\n **!rankedmaps** - List of maps in the ranked pool");
+      message.reply("**!git <unit>** - **!rookie** - Gives you the rookie role \n **!lfg** - Adds you to the looking for game pool \n **!unspecguide** - A great beginner deck building guide \n **!specprimer** - A great primer to spec decks and how to counter them \n **!honguide** - A great beginner's guide to wargame \n **!razzguide** - Razzmann's video wargame guides \n **!keyvalues** - Values worth remembering  \n **!armorytool** - A great tool for viewing hidden unit stats \n **!replayfolder** - Where game replays are stored \n **!rof** - A great Rate of Fire cheatsheet \n **!bling** - How to get colors and tags in wargame \n **!progression** - Reccomended progression guide for beginners\n **!rankedmaps** - List of maps in the ranked pool");
       break;
       case 'admin':
       message.reply('List of admin commands: \n **!ban @user** - bans the user \n **!kick @user** - Kicks the user \n **!edit *object* *parameter* *change* ** - Edits an object\'s parameters \n **!deletearty *object* ** - Deletes an artillery object \n **!deletehelicopter *object* ** - Deletes a helicopter object \n **!createarty ,name, weapon1, weapon2, weapon3, weapon4, range, speed, shotreload, supplycost, aimtime, dispersion, cost** - creates an artillery object \n **!createhelicopter , placeholder, ** - creates a helicopter object \n\n ***When creating an object, do not put a space between the commas and the name to avoid a bugged object. ex: ,name , ------> ,name,***');
@@ -314,26 +363,26 @@ message.channel.send(send);
 // DONT MIND THIS CODE, i know its absolute shit, but im too lazy to make it better lol
 
 client.on('message', message => {
-	if (message.content.startsWith(`${prefix}mud`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/mud.png'] });
+	if (message.content.startsWith('!mud')) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/mud.png'] });
     }
-	else if (message.content.startsWith(`${prefix}plunjing`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/plunjing.png'] });
+	else if (message.content.startsWith('!plunjing')) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/plunjing.png'] });
     }
-	else if (message.content.startsWith(`${prefix}paddy`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/paddy.png'] });
+	else if (message.content.startsWith('!paddy')) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/paddy.png'] });
     }
-  else if (message.content.startsWith(`${prefix}punchbowl`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/punchbowl.png'] });
+  else if (message.content.startsWith('!punchbowl')) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/punchbowl.png'] });
     }
-  else if (message.content.startsWith(`${prefix}hell`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/hell.png'] });
+  else if (message.content.startsWith('!hell')) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/hell.png'] });
     }
-  else if (message.content.startsWith(`${prefix}highway`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/highway.png'] });
+  else if (message.content.startsWith('!highway')) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/highway.png'] });
     }
-  else if (message.content.startsWith(`${prefix}nuclear`)) {
-      message.channel.send('here is the map', { files: ['./map pictures/nuclear.png'] });
+  else if (message.content.startsWith(`!nuclear`)) {
+      message.channel.send('here is the map', { files: ['./Pictures/map pictures/nuclear.png'] });
     }
 });
 client.login(token);
