@@ -240,6 +240,64 @@ message.channel.send(send);
 
   break;
 
+  case 'getpm':
+  case 'gitpm':
+  var allArgs = '';
+  for (let i = 0; i < args.length; i++) {       //adds up all arguements after !git or !get into one single string named allArgs
+    allArgs += args[i].toLowerCase() + ' ';
+  }
+
+  allArgs = allArgs.substring(0, allArgs.length - 1);     //the previous function prints a space after allArgs, using substring(), delete it
+  allArgs = allArgs.toLowerCase();
+  allArgs = allArgs.replaceAll('-', ' ');
+  allArgs = allArgs.replaceAll(' ', '');
+  console.log('"' + allArgs + '"');
+  if(allArgs === ' ' || allArgs === '') {
+    message.reply('Please use a valid unit');     //if the user does !git <space> or !git, return and reply this.
+    return;
+  }
+
+
+
+const matchingUnits3 = units.filter((i, index) =>{       //make matchingUnits into a filter of units
+    const unit = i.Name.toLowerCase();
+    if(unit.includes(allArgs)) {              // check if unit includes allArgs
+      return i;
+    }
+  });
+
+  if (matchingUnits3.length === 0) {
+    message.reply('No units matched with the name ' + allArgs);
+  }
+
+  if(matchingUnits3.length > limit) {
+      message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits3.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
+
+      if(matchingUnits3.length < displaylimit) {
+        const matching = [];
+        matchingUnits3.forEach((i) => {
+          matching.push('**' + i.Name + '** | ');
+        });
+        message.reply(matching.join(''));
+
+
+      } else if (matchingUnits3.length > 25) {
+        message.reply('Too many matching units to display list');
+      }
+      return;
+
+  }
+
+message.reply('Pm sent!');
+  matchingUnits3.forEach((i) => {
+
+const send = format.formatting(i);
+message.author.send(send);
+
+
+    });
+
+break;
 
 
     // the GIT SPECIAL COMMAND
@@ -255,6 +313,7 @@ message.channel.send(send);
     allArgs = allArgs.substring(0, allArgs.length - 1);
     allArgs = allArgs.toLowerCase();
     allArgs = allArgs.replaceAll('-', ' ');
+    allArgs = allArgs.replaceAll(' ', '');
     console.log('"' + allArgs + '"');
     if(allArgs === ' ' || allArgs === '') {
       message.reply('Please use a valid unit');
