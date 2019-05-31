@@ -7,22 +7,22 @@ const token = process.env.token;
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
-let status = "With razzmann's pp";
+let status = "tyrnek rant about asfs";
 const csv = require('csv-parser');
 let color;
 let displaylimit = '20';
 let limit = '3';
-// let limitdisplay = '20';
+var heatdata = require('./HeatKeData.json');
 
 const results = [];
-var units = require('./Data.json');
+var units = require('./UnitData.json');
 
-// fs.createReadStream('./UnitData.csv')
+// fs.createReadStream('./Heat-KeValues.csv')
 //   .pipe(csv())
 //   .on('data', (data) => results.push(data))
 //   .on('end', () => {
 //
-//     fs.writeFile('./Data.json', JSON.stringify(results), function(err) {
+//     fs.writeFile('./HeatKeData.json', JSON.stringify(results), function(err) {
 //     if (err) throw err;
 //     console.log('Replaced!');
 //     });
@@ -31,7 +31,7 @@ var units = require('./Data.json');
 
 client.once('ready', () => {
     console.log('Bot running in the index file.');
-    client.user.setPresence({ game: { name: status, type: 0 } });      //sets the bot's status to the default status
+    client.user.setPresence({ game: { name: status, type: 'LISTENING' } });      //sets the bot's status to the default status
 });
 
 
@@ -39,6 +39,7 @@ String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, 'g'), replacement);
 };
+
 
 
 //start of commands
@@ -50,6 +51,7 @@ for(let i = 0; i < units.length; i++) {
   units[i].Name = units[i].Name.replaceAll("-", ' ');
   units[i].Name = units[i].Name.replaceAll(" ", '');
 }
+
 
 
 client.on('message', async message => {
@@ -114,7 +116,7 @@ for (let i = 0; i < args.length; i++) {
 }
 if(message.author.id === '148830717617373184') {
 status = allArgs;
-client.user.setPresence({ game: { name: status, type: 0 } });
+client.user.setPresence({ game: { name: status, type: 'LISTENING' } });
 } else {
   message.channel.send('You do not have enough mayonnaise to complete this action');
 }
@@ -201,7 +203,7 @@ break;
 
 
 
-  const matchingUnits = units.filter((i, index) =>{       //make matchingUnits into a filter of units
+  const matchingUnits = units.filter((i, index) =>{   //make matchingUnits into a filter of units
       const unit = i.Name.toLowerCase();
       if(unit.includes(allArgs)) {              // check if unit includes allArgs
         return i;
@@ -214,19 +216,26 @@ break;
 
     if(matchingUnits.length > limit) {
         message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
+        if(matchingUnits.length < 30) {
+            i = matchingUnits[0];
+            if(matchingUnits.length < 50) {
+              const send = format.formatting(i);
+               message.channel.send(send);
 
-        if(matchingUnits.length < displaylimit) {
+        }
           const matching = [];
-          matchingUnits.forEach((i) => {
+            matchingUnits.forEach((i) => {
             matching.push('**' + i.Name + '** | ');
           });
-          message.reply(matching.join(''));
+            message.channel.send('first unit sent, these are the other variations: ' + matching.join(''));
+            return;
+
+        } else if (matchingUnits.length > displaylimit) {
+            message.reply('Too many matching units to display list');
+            return;
 
 
-        } else if (matchingUnits.length > 25) {
-          message.reply('Too many matching units to display list');
-        }
-        return;
+      }
 
     }
 
@@ -239,6 +248,8 @@ message.channel.send(send);
       });
 
   break;
+
+  //this command is the same as the git command but it sends the message in prom
 
   case 'getpm':
   case 'gitpm':
@@ -270,15 +281,24 @@ const matchingUnits3 = units.filter((i, index) =>{       //make matchingUnits in
     message.reply('No units matched with the name ' + allArgs);
   }
 
+
+
   if(matchingUnits3.length > limit) {
       message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits3.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
 
       if(matchingUnits3.length < displaylimit) {
+        i = matchingUnits3[0];
+        if(matchingUnits3.length < 50) {
+          const send = format.formatting(i);
+          message.channel.send(send);
+      }
         const matching = [];
         matchingUnits3.forEach((i) => {
           matching.push('**' + i.Name + '** | ');
         });
-        message.reply(matching.join(''));
+          message.channel.send('first unit sent, these are the other variations: ' + matching.join(''));
+          return;
+
 
 
       } else if (matchingUnits3.length > 25) {
@@ -314,6 +334,7 @@ break;
     allArgs = allArgs.toLowerCase();
     allArgs = allArgs.replaceAll('-', ' ');
     allArgs = allArgs.replaceAll(' ', '');
+    allArgs = allArgs.replaceAll("'", '');
     console.log('"' + allArgs + '"');
     if(allArgs === ' ' || allArgs === '') {
       message.reply('Please use a valid unit');
@@ -328,23 +349,105 @@ break;
                 return i;
               }
             });
-
+            console.log(matchingUnits2.Name);
             if (matchingUnits2.length === 0) {
               message.reply('No units matched with the name ' + allArgs);
             }
 
+
             if(matchingUnits2.length > limit) {
-                message.reply(allArgs + ' is included in too many units, please be more specific or use !gitspec - limit: ' + limit);
-              return;
+                message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits2.length +  ' units, please be more specific or use !gitspec (or !getspec) ');
+
+                if(matchingUnits2.length < displaylimit) {
+                  i = matchingUnits2[0];
+                  if(matchingUnits2.length < 50) {
+                    const send = format.formatting(i);
+                    message.channel.send(send);
+                }
+                  const matching = [];
+                  matchingUnits2.forEach((i) => {
+                    matching.push('**' + i.Name + '** | ');
+                  });
+                    message.channel.send('first unit sent, these are the other variations: ' + matching.join(''));
+                    return;
+
+                } else if (matchingUnits2.length > 25) {
+                  message.reply('Too many matching units to display list');
+                }
+                return;
+
             }
-         else {
               matchingUnits2.forEach((i) => {
                 const send = format.formatting(i);
                 message.channel.send(send);
 
 
           });
-      }
+
+  break;
+
+  case 'heat':
+  args[0] = args[0].replaceAll(' ', '');
+  args[0] = args[0].toLowerCase();
+  if(isNaN(args[0])) {message.reply('Please enter an armor value 1 - 25'); return;}
+  if(Number(args[0]) > 25 || Number(args[0]) < 1) {
+    message.reply('Please enter an armor value 1 - 25');
+    return;
+  }
+args[0] = Number(args[0]);
+args[0] = Math.round(args[0]);
+  const apdata = heatdata.filter((i, index) =>{
+    i.ArmorAP = i.ArmorAP.replaceAll('Armor ', '');
+        const armor = i.ArmorAP.toLowerCase();
+        if(armor == args[0]) {
+          return i;
+        }
+      });
+  apdata.forEach((i) => {
+    const embed = new Discord.RichEmbed()
+    .setTitle(i.ArmorAP + ' Armor Damage Table')
+    .setColor('BLUE')
+    .addField('1 - 15', '**AP 1**: ' + i.AP1 + '**\nAP 2**: ' + i.AP2 + '**\nAP 3**: ' + i.AP3 + '\n**AP 4**: ' + i.AP4 + '**\nAP 5**: ' + i.AP5 + '\n**AP 6**: ' + i.AP6 + '\n**AP 7**: ' + i.AP7 + '\n**AP 8**: ' + i.AP8 + '\n**AP 9**: ' + i.AP9 + '**\nAP 10**: ' + i.AP10 + '**\nAP 11**: ' + i.AP11 + '**\nAP 12**: ' + i.AP12 + '**\nAP 13**: ' + i.AP13 + '**\nAP 14**: ' + i.AP14 + '**\nAP 15**: ' + i.AP15, true)
+    .addField('16 - 30', '**AP 16**: ' + i.AP16 + '**\nAP 17**: ' + i.AP17 + '\n**AP 18**: ' + i.AP18 + '\n**AP 19**: ' + i.AP19 + '\n**AP 20**: ' + i.AP20 + '\n**AP 21**: ' + i.AP21 + '\n**AP 22**: ' + i.AP22 + '\n**AP 23**: ' + i.AP23 + '**\nAP 24**: ' + i.AP24 + '\n**AP 25**: ' + i.AP25 + '\n**AP 26**: ' + i.AP26 + '\n**AP 27**: ' + i.AP27 + '\n**AP 28**: ' + i.AP28 + '\n**AP 29**: ' + i.AP29 + '\n**AP 30**: ' + i.AP30, true);
+
+
+    message.channel.send(embed);
+  });
+
+
+
+
+  break;
+  case 'ke':
+  args[0] = args[0].replaceAll(' ', '');
+  args[0] = args[0].toLowerCase();
+  if(isNaN(args[0])) {message.reply('Please enter an armor value 1 - 25'); return;}
+  if(Number(args[0]) > 25 || Number(args[0]) < 1) {
+    message.reply('Please enter an armor value 1 - 25');
+    return;
+  }
+  args[0] = Number(args[0]);
+  args[0] = Math.round(args[0]);
+  const kedata = heatdata.filter((i, index) =>{
+    i.ArmorAP = i.ArmorAP.replaceAll('Armor ', '');
+        const armor = i.ArmorAP.toLowerCase();
+        if(armor == args[0]) {
+          return i;
+        }
+      });
+  kedata.forEach((i) => {
+    const embed = new Discord.RichEmbed()
+    .setTitle(i.ArmorAP + ' Armor Damage Table')
+    .setColor('GREEN')
+    .addField('1 - 18 ***KE***', '**AP 1**: ' + i.KE1 + '**\nAP 2**: ' + i.KE2 + '**\nAP 3**: ' + i.KE3 + '\n**AP 4**: ' + i.KE4 + '**\nAP 5**: ' + i.KE5 + '\n**AP 6**: ' + i.KE6 + '\n**AP 7**: ' + i.KE7 + '\n**AP 8**: ' + i.KE8 + '\n**AP 9**: ' + i.KE9 + '**\nAP 10**: ' + i.KE10 + '**\nAP 11**: ' + i.KE11 + '**\nAP 12**: ' + i.KE12 + '**\nAP 13**: ' + i.KE13 + '**\nAP 14**: ' + i.KE14 + '**\nAP 15**: ' + i.KE15 + '**\nAP 16**: ' + i.KE16 + '**\nAP 17**: ' + i.KE17 + '**\nAP 18**: ' + i.KE18, true)
+    .addField('19 - 36 ***KE***', '**AP 19**: ' + i.KE19 + '\n**AP 20**: ' + i.KE20 + '\n**AP 21**: ' + i.KE21 + '\n**AP 22**: ' + i.KE22 + '\n**AP 23**: ' + i.KE23 + '**\nAP 24**: ' + i.KE24 + '\n**AP 25**: ' + i.KE25 + '\n**AP 26**: ' + i.KE26 + '\n**AP 27**: ' + i.KE27 + '\n**AP 28**: ' + i.KE28 + '\n**AP 29**: ' + i.KE29 + '\n**KE 30**: ' + i.KE30 + '\n**KE 31**: ' + i.KE31 + '\n**KE 32**: ' + i.KE32 + '\n**KE 33**: ' + i.KE33 + '\n**KE 34**: ' + i.KE34 + '\n**KE 35**: ' + i.KE35 + '\n**KE 36**: ' + i.KE36, true);
+
+    message.channel.send(embed);
+  });
+
+
+
+
   break;
 
       case 'rookie':
@@ -372,7 +475,8 @@ break;
       .setColor('GOLD')
       .setTitle('**Bootcamp/ Armory bot**')
       .setDescription('A bot developed by senorDickweed#7033 for the r/wargamebootcamp server, offers common commands and unit search functions, coded in discord.js, **for commands use !help**')
-      .addField('Acknowledgements', '1: **Tyrnek#2495** for letting me do this lol \n 2: **Lawlzer#4013** for helping a lot on the code \n 3: **Mbetts#9468** for helping me a lot on the formatting and the code \n 4: **Phlogis#9776** for helping with the data aspect of the units \n 5: **everyone** on the testing server that helped me test the bot');
+      .addField('Acknowledgements', '1: **Tyrnek#2495** for letting me do this lol \n 2: **Lawlzer#4013** for helping a lot on the code \n 3: **Mbetts#9468** for helping me a lot on the formatting and the code \n 4: **Phlogis#9776** for helping with the data aspect of the units \n 5: **everyone** on the testing server that helped me test the bot')
+      .addField('Code', 'https://github.com/duckthecuck/wargamebootcamp-bot');
       message.channel.send(embed);
       break;
       case 'unspecguide':

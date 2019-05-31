@@ -5,12 +5,13 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 module.exports.formatting = (i) => {
 
+  if(i.Name === '') { return;}
 
 
   i.Weapon2Type = i.Weapon2Type.replaceAll('LAW', 'AT');
   i.Weapon3Type = i.Weapon3Type.replaceAll('LAW', 'AT');
 
-  let title = ('**' + i.Name.toUpperCase() + '**');
+
 
   let weapon1round;
   let weapon2round;
@@ -129,22 +130,22 @@ if (i.Weapon8HE < 1) { weapon8round = i.Weapon8HE; } else { weapon8round = Math.
 
 
   if(i.ArmorFrontSplashResistant.toLowerCase() ===  'true') {
-          armorfront = i.ArmorFront + ' **SPLASH**';
+          armorfront = '0';
 } else {
           armorfront = i.ArmorFront;
 }
   if(i.ArmorSidesSplashResistant.toLowerCase() ===  'true') {
-          armorsides = i.ArmorSides + ' **SPLASH**';
+          armorsides = '0';
   } else {
           armorsides = i.ArmorSides;
 }
   if(i.ArmorRearSplashResistant.toLowerCase() ===  'true') {
-          armorrear = i.ArmorRear + ' **SPLASH**';
+          armorrear = '0';
   } else {
           armorrear = i.ArmorRear;
 }
   if(i.ArmorTopSplashResistant.toLowerCase() ===  'true') {
-          armortop = i.ArmorTop + ' **SPLASH**';
+          armortop = '0';
   } else {
           armortop = i.ArmorTop;
 }
@@ -165,9 +166,9 @@ if(i.EliteDeployableAmount !== '0') {eliteavail = ('<:vet5:583396238053867558> *
 
 //defaults
 
+  let title = ('**' + i.Name.toUpperCase() + ('%', ' ') + '**');
 
-
-  const availability = (rookieavail + trainedavail + hardenedavail + veteranavail + eliteavail);
+  let availability = (rookieavail + trainedavail + hardenedavail + veteranavail + eliteavail);
 
   let accuracy = (+ ' | **Accuracy**: ' + Math.trunc(i.Weapon1HitProbability * 100) + '%');
 
@@ -177,29 +178,34 @@ if(i.EliteDeployableAmount !== '0') {eliteavail = ('<:vet5:583396238053867558> *
 
   let category = ('**Logistics** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
 
-  const supply = Math.trunc(i.Weapon1SupplyCost / i.Weapon1ShotsPerSalvo);
+  let movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround);
 
-  const movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround);
+  let weapon1 = ('**Weapon 1**: ' + i.Weapon1Name + ', ' + i.Weapon1Caliber + ' x' + Math.trunc(i.Weapon1DisplayedAmmunition) + ', ** ' + i.Weapon1Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon1RangeGround) + ' - ' + Math.trunc(i.Weapon1RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon1RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon1RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon1DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon1DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon1AP + ' | **HE Power**: ' + weapon1round + ' | **Salvo**: ' + Math.trunc(i.Weapon1ShotsPerSalvo) + ' Shots | **Supply Cost**: '  + Math.trunc(i.Weapon1SupplyCost) + ' per salvo | **ROF**: ' + weapon1rof  + ' | **Accuracy**: ' + Math.trunc(i.Weapon1HitProbability * 100) + '%');
 
-  let weapon1 = ('**Weapon 1**: ' + i.Weapon1Name + ', ' + i.Weapon1Caliber + ' x' + Math.trunc(i.Weapon1DisplayedAmmunition) + ', ** ' + i.Weapon1Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon1RangeGround) + ' - ' + Math.trunc(i.Weapon1RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon1RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon1RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon1DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon1DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon1AP + ' | **HE Power**: ' + weapon1round + ' | **Salvo**: ' + Math.trunc(i.Weapon1ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon1SupplyCost) + ' per salvo | **ROF**: ' + weapon1rof  + ' | **Accuracy**: ' + Math.trunc(i.Weapon1HitProbability * 100) + '%');
+  let weapon2 = ('**Weapon 2**: ' + i.Weapon2Name + ', ' + i.Weapon2Caliber + ' x' + Math.trunc(i.Weapon2DisplayedAmmunition) + ', ** ' + i.Weapon2Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon2RangeGround) + ' - ' + Math.trunc(i.Weapon2RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon2RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon2RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon2DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon2DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon2AP + ' | **HE Power**: ' + weapon2round + ' | **Salvo**: ' + Math.trunc(i.Weapon2ShotsPerSalvo) + ' Shots | **Supply Cost**: '  + Math.trunc(i.Weapon2SupplyCost) + ' per salvo | **ROF**: ' + weapon2rof + ' | **Accuracy**: ' + Math.trunc(i.Weapon2HitProbability * 100) + '%');
 
-  let weapon2 = ('**Weapon 2**: ' + i.Weapon2Name + ', ' + i.Weapon2Caliber + ' x' + Math.trunc(i.Weapon2DisplayedAmmunition) + ', ** ' + i.Weapon2Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon2RangeGround) + ' - ' + Math.trunc(i.Weapon2RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon2RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon2RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon2DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon2DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon2AP + ' | **HE Power**: ' + weapon2round + ' | **Salvo**: ' + Math.trunc(i.Weapon2ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon2SupplyCost) + ' per salvo | **ROF**: ' + weapon2rof + ' | **Accuracy**: ' + Math.trunc(i.Weapon2HitProbability * 100) + '%');
+  let weapon3 = ('**Weapon 3**: ' + i.Weapon3Name + ', ' + i.Weapon3Caliber + ' x' + Math.trunc(i.Weapon3DisplayedAmmunition) + ', ** ' + i.Weapon3Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon3RangeGround) + ' - ' + Math.trunc(i.Weapon3RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon3RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon3RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon3DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon3DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon3AP + ' | **HE Power**: ' + weapon3round + ' | **Salvo**: ' + Math.trunc(i.Weapon3ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + Math.trunc(i.Weapon3SupplyCost) + ' per salvo | **ROF**: ' + weapon3rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon3HitProbability * 100) + '%');
 
-  let weapon3 = ('**Weapon 3**: ' + i.Weapon3Name + ', ' + i.Weapon3Caliber + ' x' + Math.trunc(i.Weapon3DisplayedAmmunition) + ', ** ' + i.Weapon3Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon3RangeGround) + ' - ' + Math.trunc(i.Weapon3RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon3RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon3RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon3DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon3DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon3AP + ' | **HE Power**: ' + weapon3round + ' | **Salvo**: ' + Math.trunc(i.Weapon3ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon3SupplyCost) + ' per salvo | **ROF**: ' + weapon3rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon3HitProbability * 100) + '%');
+  let weapon4 = ('**Weapon 4**: ' + i.Weapon4Name + ', ' + i.Weapon4Caliber + ' x' + Math.trunc(i.Weapon4DisplayedAmmunition) + ', ** ' + i.Weapon4Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon4RangeGround) + ' - ' + Math.trunc(i.Weapon4RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon4RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon4RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon4DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon4DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon4round + ' | **Salvo**: ' + Math.trunc(i.Weapon4ShotsPerSalvo) + ' Shots | **Supply Cost**: '  + Math.trunc(i.Weapon4SupplyCost) + ' per salvo | **ROF**: ' + weapon4rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon4HitProbability * 100) + '%');
 
+  let weapon5 = ('**Weapon 5**: ' + i.Weapon5Name + ', ' + i.Weapon5Caliber + ' x' + Math.trunc(i.Weapon5DisplayedAmmunition) + ', ** ' + i.Weapon5Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon5RangeGround) + ' - ' + Math.trunc(i.Weapon5RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon5RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon5RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon5DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon5DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon5round + ' | **Salvo**: ' + Math.trunc(i.Weapon5ShotsPerSalvo) + ' Shots | **Supply Cost**: ' +  Math.trunc(i.Weapon5SupplyCost) + ' per salvo | **ROF**: ' + weapon5rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon5HitProbability * 100) + '%');
 
-  let weapon4 = ('**Weapon 4**: ' + i.Weapon4Name + ', ' + i.Weapon4Caliber + ' x' + Math.trunc(i.Weapon4DisplayedAmmunition) + ', ** ' + i.Weapon4Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon4RangeGround) + ' - ' + Math.trunc(i.Weapon4RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon4RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon4RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon4DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon4DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon4round + ' | **Salvo**: ' + Math.trunc(i.Weapon4ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon4SupplyCost) + ' per salvo | **ROF**: ' + weapon4rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon4HitProbability * 100) + '%');
+  let weapon6 = ('**Weapon 6**: ' + i.Weapon6Name + ', ' + i.Weapon6Caliber + ' x' + Math.trunc(i.Weapon6DisplayedAmmunition) + ', ** ' + i.Weapon6Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon6RangeGround) + ' - ' + Math.trunc(i.Weapon6RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon6RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon6RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon6DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon6DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon6round + ' | **Salvo**: ' + Math.trunc(i.Weapon6ShotsPerSalvo) + ' Shots | **Supply Cost**: '  + Math.trunc(i.Weapon6SupplyCost) + ' per salvo | **ROF**: ' + weapon6rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon6HitProbability * 100) + '%');
 
+  let weapon7 = ('**Weapon 7**: ' + i.Weapon7Name + ', ' + i.Weapon7Caliber + ' x' + Math.trunc(i.Weapon7DisplayedAmmunition) + ', ** ' + i.Weapon7Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon7RangeGround) + ' - ' + Math.trunc(i.Weapon7RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon7RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon7RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon7DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon7DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon7round + ' | **Salvo**: ' + Math.trunc(i.Weapon7ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + Math.trunc(i.Weapon7SupplyCost) + ' per salvo | **ROF**: ' + weapon7rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon7HitProbability * 100) + '%');
 
+  let weapon8 = ('**Weapon 8**: ' + i.Weapon8Name + ', ' + i.Weapon8Caliber + ' x' + Math.trunc(i.Weapon8DisplayedAmmunition) + ', ** ' + i.Weapon8Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon8RangeGround) + ' - ' + Math.trunc(i.Weapon8RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon8RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon8RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon8DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon8DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon8round + ' | **Salvo**: ' + Math.trunc(i.Weapon8ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + Math.trunc(i.Weapon8SupplyCost) + ' per salvo | **ROF**: ' + weapon8rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon8HitProbability * 100) + '%');
 
+  // if(i.Weapon2Type == 'AT' && i.Training !== '' && i.Weapon3Name == '') {
+  //    title = ('**' + i.Name.toUpperCase() + '**' + '    <:nato_at_infantry:583701946477576192>');
+  // } else if (i.Weapon2Type == 'SAM' && i.Training !== '' && i.Weapon3Name == '') {
+  //    title = ('**' + i.Name.toUpperCase() + '**' + '    <:nato_aa_sam_infantry:583703304974893093>');
+  // } else if (i.Weapon2Type == 'Flamethrower' && i.Training !== '' && i.Weapon3Name == '') {
+  //    title = ('**' + i.Name.toUpperCase() + '**' + '    <:nato_flame_infantry:583703448567152672>');
+  // } else if (i.Weapon2Type == 'Flamethrower' && i.Training !== '' && i.Weapon3Name == '') {
+  //    title = ('**' + i.Name.toUpperCase() + '**' + '    <:nato_flame_infantry:583703448567152672>');
+  // }
 
-  let weapon5 = ('**Weapon 5**: ' + i.Weapon5Name + ', ' + i.Weapon5Caliber + ' x' + Math.trunc(i.Weapon5DisplayedAmmunition) + ', ** ' + i.Weapon5Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon5RangeGround) + ' - ' + Math.trunc(i.Weapon5RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon5RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon5RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon5DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon5DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon5round + ' | **Salvo**: ' + Math.trunc(i.Weapon5ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon5SupplyCost) + ' per salvo | **ROF**: ' + weapon5rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon5HitProbability * 100) + '%');
-
-  let weapon6 = ('**Weapon 6**: ' + i.Weapon6Name + ', ' + i.Weapon6Caliber + ' x' + Math.trunc(i.Weapon6DisplayedAmmunition) + ', ** ' + i.Weapon6Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon6RangeGround) + ' - ' + Math.trunc(i.Weapon6RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon6RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon6RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon6DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon6DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon6round + ' | **Salvo**: ' + Math.trunc(i.Weapon6ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon6SupplyCost) + ' per salvo | **ROF**: ' + weapon6rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon6HitProbability * 100) + '%');
-
-  let weapon7 = ('**Weapon 7**: ' + i.Weapon7Name + ', ' + i.Weapon7Caliber + ' x' + Math.trunc(i.Weapon7DisplayedAmmunition) + ', ** ' + i.Weapon7Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon7RangeGround) + ' - ' + Math.trunc(i.Weapon7RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon7RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon7RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon7DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon7DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon7round + ' | **Salvo**: ' + Math.trunc(i.Weapon7ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon7SupplyCost) + ' per salvo | **ROF**: ' + weapon7rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon7HitProbability * 100) + '%');
-
-  let weapon8 = ('**Weapon 8**: ' + i.Weapon8Name + ', ' + i.Weapon8Caliber + ' x' + Math.trunc(i.Weapon8DisplayedAmmunition) + ', ** ' + i.Weapon8Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon8RangeGround) + ' - ' + Math.trunc(i.Weapon8RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon8RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon8RangePlanes) + '| **Dispersion**: Min: ' + Math.trunc(i.Weapon8DispersionAtMinRange) + ', Max: ' + Math.trunc(i.Weapon8DispersionAtMaxRange) + ' | **AP Power**: ' + i.Weapon4AP + ' | **HE Power**: ' + weapon8round + ' | **Salvo**: ' + Math.trunc(i.Weapon8ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + supply + ' per shot, ' + Math.trunc(i.Weapon8SupplyCost) + ' per salvo | **ROF**: ' + weapon8rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon8HitProbability * 100) + '%');
 
 //specialized formatting
 
@@ -207,17 +213,40 @@ if(i.Tab === 'LOG') {                                        //logistics tab for
   if(i.SupplyCapacity === '') {
     title = ('**' + i.Name.toUpperCase() + '**' + ' <:command:583070567301644290>'); } //if its a cv, give it the cv icon
 
-    description = ('**Price**: ' + i.Price +  ' | **Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop);
-
-    category = ('**Logistics** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
-
+  category = ('**Logistics** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
+  if(i.Training !== '') { movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround + ' | **Training**: ' + i.Training);
+    description = ('**Price**: ' + i.Price);
+    }
+  if(armorfront == 'none' && armorsides == 'none' && armorrear == 'none' && armortop == 'none') {
+    description = ('**Price**: ' + i.Price +  ' | **Armor**: Splash');
+    }
+  if(i.SupplyCapacity !== '') {   category = ('**Logistics** | **Supply capacity**: ' + i.SupplyCapacity +  ' | **Nationality**: ' + i.MotherCountry + ' | ' + proto); }
 
   } else if (i.Tab === 'INF') {
-    category = ('**Infantry** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
+      category = ('**Infantry** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
+      description = ('**Price**: ' + i.Price);
+      movement = ('**Movement**', '**Type**: ' + i.MovementType + ' | **Speed**: ' + Math.trunc(i.MaxSpeed) + 'kph | **Stealth**: ' + i.Stealth + ' \n **Ground optics**: ' + i.OpticalStrengthGround + ' | **Training**: ' + i.Training);
+      weapon1 = ('**Weapon 1**: ' + i.Weapon1Name + ', ' + i.Weapon1Caliber + ' x' + Math.trunc(i.Weapon1DisplayedAmmunition) + ', ** ' + i.Weapon1Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon1RangeGround) + ' - ' + Math.trunc(i.Weapon1RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon1RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon1RangePlanes) + ' | **AP Power**: ' + i.Weapon1AP + ' | **HE Power**: ' + weapon1round + ' | **Salvo**: ' + Math.trunc(i.Weapon1ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + Math.trunc(i.Weapon1SupplyCost) + ' per salvo | **ROF**: ' + weapon1rof  + ' | **Accuracy**: ' + Math.trunc(i.Weapon1HitProbability * 100) + '%');
+
+      weapon2 = ('**Weapon 2**: ' + i.Weapon2Name + ', ' + i.Weapon2Caliber + ' x' + Math.trunc(i.Weapon2DisplayedAmmunition) + ', ** ' + i.Weapon2Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon2RangeGround) + ' - ' + Math.trunc(i.Weapon2RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon2RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon2RangePlanes) + ' | **AP Power**: ' + i.Weapon2AP + ' | **HE Power**: ' + weapon2round + ' | **Salvo**: ' + Math.trunc(i.Weapon2ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + Math.trunc(i.Weapon2SupplyCost) + ' per salvo | **ROF**: ' + weapon2rof + ' | **Accuracy**: ' + Math.trunc(i.Weapon2HitProbability * 100) + '%');
+
+      weapon3 = ('**Weapon 3**: ' + i.Weapon3Name + ', ' + i.Weapon3Caliber + ' x' + Math.trunc(i.Weapon3DisplayedAmmunition) + ', ** ' + i.Weapon3Tags + '** | **RANGE**: Ground: ' + Math.trunc(i.Weapon3RangeGround) + ' - ' + Math.trunc(i.Weapon3RangeGroundMinimum) + ', Helicopters: ' + Math.trunc(i.Weapon3RangeHelicopters) + ', Airplanes: ' + Math.trunc(i.Weapon3RangePlanes) + ' | **AP Power**: ' + i.Weapon3AP + ' | **HE Power**: ' + weapon3round + ' | **Salvo**: ' + Math.trunc(i.Weapon3ShotsPerSalvo) + ' Shots | **Supply Cost**: ' + Math.trunc(i.Weapon3SupplyCost) + ' per salvo | **ROF**: ' + weapon3rof +  ' | **Accuracy**: ' + Math.trunc(i.Weapon3HitProbability * 100) + '%');
+
   } else if (i.Tab === 'SUP') {
     category = ('**Support** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
+    if(i.Weapon1Caliber.includes('Radar') && weapon1rof > 30) {
+      title = title + ' <:nato_aa_flak_vehicle_rad:583815605442969600>';
+
+    }
+    if(!i.Weapon1Caliber.includes('Radar') && weapon1rof > 30) {
+      title = title + ' <:nato_aa_flak_vehicle:583815605547696131>';
+
+    }
   } else if (i.Tab === 'TNK') {
     category = ('**Tank** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
+    weapon1 = (weapon1 + ' | **Stabilizer**: ' + i.Weapon1HitProbabilityWhileMoving * 100 + '%');
+    weapon2 = (weapon2 + ' | **Stabilizer**: ' + i.Weapon2HitProbabilityWhileMoving * 100 + '%');
+    weapon3 = (weapon3 + ' | **Stabilizer**: ' + i.Weapon3HitProbabilityWhileMoving * 100 + '%');
   } else if (i.Tab === 'REC') {
     category = ('**Recon** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
   } else if (i.Tab === 'VHC') {
@@ -226,6 +255,12 @@ if(i.Tab === 'LOG') {                                        //logistics tab for
     category = ('**Helicopter** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
   } else if (i.Tab === 'PLA') {
     category = ('**Plane** | **Nationality**: ' + i.MotherCountry + ' | ' + proto);
+
+    if(i.Weapon1Caliber == 'Antiradar' || i.Weapon2Caliber == 'Antiradar' || i.Weapon3Caliber == 'Antiradar') {
+
+      title = title + ' <:nato_sead:583815605124202507>';
+    }
+
   }
 
   if(i.Weapon7Name == i.Weapon8Name) {
@@ -247,12 +282,6 @@ if(i.Tab === 'LOG') {                                        //logistics tab for
   }
 
 
-
-
-
-
-
-
 const embed = new Discord.RichEmbed()
 
   .setTitle(title)
@@ -263,11 +292,12 @@ const embed = new Discord.RichEmbed()
 
   .addField('**Movement**', movement)
 
-  .addField('**Availability**', availability)
+  .addField('**Availability**', availability);
 
-  .addField('**Weapon 1** (' + i.Weapon1Type + ')', weapon1);
 //add fields for weapons only if the unit has the weapons
-
+if(i.Weapon1Name !== '') {
+    embed.addField('**Weapon 1 ( ' + i.Weapon1Type + ')**', weapon1);
+}
 if(i.Weapon2Name !== '') {
     embed.addField('**Weapon 2 ( ' + i.Weapon2Type + ')**', weapon2);
 }
@@ -290,11 +320,12 @@ if(i.Weapon8Name !== '') {
     embed.addField('**Weapon 8 ( ' + i.Weapon8Type + ')**', weapon8);
 }
 
+
 if(i.Tab === 'INF') {
   if(i.Weapon2Type == 'SAM') {
   embed.attachFiles(['./Pictures/Inf/manpads.png']);
    embed.setThumbnail('attachment://manpads.png');
-} else if (i.Weapon2Type == 'ATGM') {
+} else if (i.Weapon2Type == 'ATGM' && Number(i.Strength) < 10) {
   embed.attachFiles(['./Pictures/Inf/atgms.png']);
    embed.setThumbnail('attachment://atgms.png');
 } else if (i.Weapon2Type == 'AT' && i.Weapon3Name === '') {
@@ -303,10 +334,17 @@ if(i.Tab === 'INF') {
 } else if (i.Weapon2Type == 'Flamethrower') {
   embed.attachFiles(['./Pictures/Inf/flamers.png']);
    embed.setThumbnail('attachment://flamers.png');
-} else if (i.Training == 'Regular' || i.Training == 'Militia') {
+} else if (i.Training == 'Shock' && Number(i.MaxSpeed) > 38) {
+  embed.attachFiles(['./Pictures/Inf/lightinfantry.png']);
+    embed.setThumbnail('attachment://lightinfantry.png');
+} else if (i.Training == 'Shock' && Number(i.MaxSpeed) < 38) {
   embed.attachFiles(['./Pictures/Inf/lineinfantry.png']);
     embed.setThumbnail('attachment://lineinfantry.png');
-} else if (i.Training == 'Shock') {
+} else if (i.Training == 'Regular' && Number(i.MaxSpeed) < 31) {
+  embed.attachFiles(['./Pictures/Inf/lineinfantry.png']);
+    embed.setThumbnail('attachment://lineinfantry.png');
+
+} else if (i.Training == 'Regular' && Number(i.MaxSpeed) > 31) {
   embed.attachFiles(['./Pictures/Inf/lightinfantry.png']);
     embed.setThumbnail('attachment://lightinfantry.png');
   }
@@ -314,6 +352,10 @@ if(i.Tab === 'INF') {
    if (i.Tab == 'LOG' && i.Training !== '') {
     embed.attachFiles(['./Pictures/Inf/command.png']);
      embed.setThumbnail('attachment://command.png');
+   }
+   if(i.Tab == 'PLA' && i.Name == 'A10ATHUNDERBOLTII') {
+     embed.attachFiles(['./Pictures/Inf/thunderbolt.png']);
+       embed.setThumbnail('attachment://thunderbolt.png');
    }
  if (i.Training == 'Elite') {
   embed.attachFiles(['./Pictures/Inf/commandos.png']);
@@ -323,8 +365,5 @@ if(i.Tab === 'INF') {
     embed.setThumbnail('attachment://recon.png');
 }
 
-
-
-
 return embed;
-  };
+};
