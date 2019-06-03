@@ -19,7 +19,7 @@
 		"max-nested-callbacks": ["error", { "max": 4 }],
 
 		"no-console": "off",
-		"no-empty-function": "error",
+
 		"no-floating-decimal": "error",
 
 		"no-lonely-if": "error",
