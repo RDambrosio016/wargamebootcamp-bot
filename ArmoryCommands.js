@@ -67,7 +67,7 @@ module.exports.git = (args, message, limit, displaylimit) => {
       m.react('🗑'); //react with a wastebasket to the bots own post
       m.awaitReactions(filter, {
           max: 1,
-          time: 5000,
+          time: 15000,
           errors: ['Time'],
         }) //wait 15 seconds for reactions and throw an error if none are found after 15seconds
         .then(collected => {
@@ -214,7 +214,7 @@ module.exports.gitspec = (args, message, limit, displaylimit) => {
       m.react('🗑');
       m.awaitReactions(filter, {
           max: 1,
-          time: 5000,
+          time: 15000,
           errors: ['Time'],
         })
         .then(collected => {
