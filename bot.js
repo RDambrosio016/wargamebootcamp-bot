@@ -8,13 +8,13 @@ const token = process.env.token;
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
-let status = "tyrnek rant about asfs";
+let status = "Bob Ross";
 const csv = require('csv-parser');
 let color;
 let displaylimit = '20';
 let limit = '3';
 var heatdata = require('./HeatKeData.json');
-let commoncommands = false;
+let commoncommands = true;
 const results = [];
 var units = require('./UnitData.json');
 
@@ -35,7 +35,7 @@ client.once('ready', () => {
   client.user.setPresence({
     game: {
       name: status,
-      type: 'LISTENING',
+      type: 'WATCHING',
     },
   }); //sets the bot's status to the default status
 });
@@ -188,15 +188,16 @@ client.on('message', async message => {
 
 
 
-    case 'flip':
-      var coin = Math.floor(Math.random() * (2 - 1 + 1)) + 1; //gets a random number 1 to 2
+    //case 'flip':
+     // var coin = Math.floor(Math.random() * (2 - 1 + 1)) + 1; //gets a random number 1 to 2
 
-      if (coin == '1') { //if the value is 1, return heads, if its 2, return tails
-        message.reply('Heads');
-      } else if (coin == '2') {
-        message.reply('Tails');
-      }
-      break;
+     // if (coin == '1') { //if the value is 1, return heads, if its 2, return tails
+       // message.reply('Heads');
+     // } else if (coin == '2') {
+    //    message.reply('Tails');
+   //   }
+   //   break;
+      
 
 
 
@@ -223,6 +224,14 @@ client.on('message', async message => {
       break;
     case 'ke':
       commands.ke(args, message, heatdata);
+    break;
+      
+    case "resetcommands":
+      commonCommands.botcommands(client, admin);
+      break;
+
+    case 'invite':
+    commonCommands.invite(message, admin, args);
     break;
 
     case 'duckinfo':
@@ -252,20 +261,20 @@ client.on('message', async message => {
   if (commoncommands == true) {
     switch (commandName) {
       case 'rookie':
-        if (!message.member.roles.has('579034768243425346')) {
-          message.member.addRole('579034768243425346');
+        if (!message.member.roles.has('502524273731043328')) {
+          message.member.addRole('502524273731043328');
           message.reply('Successfully added rookie role!');
-        } else if (message.member.roles.has('579034768243425346')) {
-          message.member.removeRole('579034768243425346');
+        } else if (message.member.roles.has('502524273731043328')) {
+          message.member.removeRole('502524273731043328');
           message.reply('Successfully removed rookie role!');
         }
         break;
       case 'lfg':
-        if (!message.member.roles.has('579042113803649035')) {
-          message.member.addRole('579042113803649035');
+        if (!message.member.roles.has('351126993838014476')) {
+          message.member.addRole('351126993838014476');
           message.reply('Successfully added lfg role!');
-        } else if (message.member.roles.has('579042113803649035')) {
-          message.member.removeRole('579042113803649035');
+        } else if (message.member.roles.has('351126993838014476')) {
+          message.member.removeRole('351126993838014476');
           message.reply('Successfully removed lfg role!');
         }
         break;

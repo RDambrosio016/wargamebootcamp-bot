@@ -74,8 +74,8 @@ module.exports.git = (args, message, limit, displaylimit) => {
           const reaction = collected.first();
           if (reaction.emoji.name === '🗑') { //if the reaction is wastebasket, delete the bot's message, and if the unit matching length is less than 2, delete the user's message
             m.delete().then(() => {
-              
-                message.delete(message);
+
+                message.delete(message).catch(err => {});
 
             });
           }
