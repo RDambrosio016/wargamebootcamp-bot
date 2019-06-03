@@ -225,7 +225,7 @@ client.on('message', async message => {
       commands.ke(args, message, heatdata);
     break;
 
-    case 'info':
+    case 'duckinfo':
       const embed = new Discord.RichEmbed()
         .setColor('GOLD')
         .setTitle('**Bootcamp/ Armory bot**')
@@ -239,7 +239,7 @@ client.on('message', async message => {
       break;
 
     case 'commands':
-    case 'help':
+    case 'duckhelp':
     commonCommands.help(args, message);
     break;
     case 'adminhelp':
