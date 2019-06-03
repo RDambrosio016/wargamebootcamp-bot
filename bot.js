@@ -17,7 +17,7 @@ var heatdata = require('./HeatKeData.json');
 let commoncommands = true;
 const results = [];
 var units = require('./UnitData.json');
-try {
+
 // fs.createReadStream('./Heat-KeValues.csv')
 //   .pipe(csv())
 //   .on('data', (data) => results.push(data))
@@ -339,7 +339,4 @@ client.on('message', message => {
     });
   }
 });
-} catch(err) {
-  console.log(err);
-};
 client.login(token);
