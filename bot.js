@@ -188,15 +188,16 @@ client.on('message', async message => {
 
 
 
-    case 'flip':
-      var coin = Math.floor(Math.random() * (2 - 1 + 1)) + 1; //gets a random number 1 to 2
+    //case 'flip':
+     // var coin = Math.floor(Math.random() * (2 - 1 + 1)) + 1; //gets a random number 1 to 2
 
-      if (coin == '1') { //if the value is 1, return heads, if its 2, return tails
-        message.reply('Heads');
-      } else if (coin == '2') {
-        message.reply('Tails');
-      }
-      break;
+     // if (coin == '1') { //if the value is 1, return heads, if its 2, return tails
+       // message.reply('Heads');
+     // } else if (coin == '2') {
+    //    message.reply('Tails');
+   //   }
+   //   break;
+      
 
 
 
