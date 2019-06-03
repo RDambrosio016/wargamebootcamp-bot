@@ -36,6 +36,7 @@ module.exports.invite = (message, admin, args) => {
   if(isNaN(duration) || isNaN(uses)) {
     message.reply('Please use a number for the inputs');
   }
+  console.log('bloop');
   message.channel.createInvite({
     maxAge: Number(duration),
     maxUses: Number(uses),
