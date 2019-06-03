@@ -308,31 +308,31 @@ client.on('message', async message => {
 client.on('message', message => {
   if (message.content.startsWith('!mud')) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/mud.png'],
+      files: ['./Pictures/Map Pictures/mud.png'],
     });
   } else if (message.content.startsWith('!plunjing')) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/plunjing.png'],
+      files: ['./Pictures/Map Pictures/plunjing.png'],
     });
   } else if (message.content.startsWith('!paddy')) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/paddy.png'],
+      files: ['./Pictures/Map Pictures/paddy.png'],
     });
   } else if (message.content.startsWith('!punchbowl')) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/punchbowl.png'],
+      files: ['./Pictures/Map Pictures/punchbowl.png'],
     });
   } else if (message.content.startsWith('!hell')) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/hell.png'],
+      files: ['./Pictures/Map Pictures/hell.png'],
     });
   } else if (message.content.startsWith('!highway')) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/highway.png'],
+      files: ['./Pictures/Map Pictures/highway.png'],
     });
   } else if (message.content.startsWith(`!nuclear`)) {
     message.channel.send('here is the map', {
-      files: ['./Pictures/map pictures/nuclear.png'],
+      files: ['./Pictures/Map Pictures/nuclear.png'],
     });
   }
 });
