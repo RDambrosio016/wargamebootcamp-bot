@@ -227,7 +227,7 @@ client.on('message', async message => {
     break;
       
     case "resetcommands":
-      commonCommands.botcommands();
+      commonCommands.botcommands(client);
       break;
 
     case 'duckinfo':
