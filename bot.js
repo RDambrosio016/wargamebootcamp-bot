@@ -339,7 +339,7 @@ client.on('message', message => {
     });
   }
 });
-} catch(err => {
+} catch(err) {
   console.log(err);
-});
+};
 client.login(token);
