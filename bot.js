@@ -197,7 +197,7 @@ client.on('message', async message => {
     //    message.reply('Tails');
    //   }
    //   break;
-      
+
 
 
 
@@ -225,7 +225,7 @@ client.on('message', async message => {
     case 'ke':
       commands.ke(args, message, heatdata);
     break;
-      
+
     case "resetcommands":
       commonCommands.botcommands(client, admin);
       break;
