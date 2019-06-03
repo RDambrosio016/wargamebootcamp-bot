@@ -41,7 +41,7 @@ module.exports.invite = (message, admin, args) => {
     maxAge: Number(duration),
     maxUses: Number(uses),
   }).then(m => {
-    message.channel.send(m);
+    message.channel.send('created invite: ' + m);
   }).catch(err => {
     console.log(err);
   });
