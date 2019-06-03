@@ -252,20 +252,20 @@ client.on('message', async message => {
   if (commoncommands == true) {
     switch (commandName) {
       case 'rookie':
-        if (!message.member.roles.has('579034768243425346')) {
-          message.member.addRole('579034768243425346');
+        if (!message.member.roles.has(‘502524273731043328')) {
+          message.member.addRole('502524273731043328');
           message.reply('Successfully added rookie role!');
-        } else if (message.member.roles.has('579034768243425346')) {
-          message.member.removeRole('579034768243425346');
+        } else if (message.member.roles.has('502524273731043328')) {
+          message.member.removeRole('502524273731043328');
           message.reply('Successfully removed rookie role!');
         }
         break;
       case 'lfg':
-        if (!message.member.roles.has('579042113803649035')) {
-          message.member.addRole('579042113803649035');
+        if (!message.member.roles.has('351126993838014476’)) {
+          message.member.addRole('351126993838014476');
           message.reply('Successfully added lfg role!');
-        } else if (message.member.roles.has('579042113803649035')) {
-          message.member.removeRole('579042113803649035');
+        } else if (message.member.roles.has('351126993838014476')) {
+          message.member.removeRole('351126993838014476');
           message.reply('Successfully removed lfg role!');
         }
         break;
