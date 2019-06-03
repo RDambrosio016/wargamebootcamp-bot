@@ -225,6 +225,10 @@ client.on('message', async message => {
     case 'ke':
       commands.ke(args, message, heatdata);
     break;
+      
+    case "resetcommands":
+      commonCommands.botcommands();
+      break;
 
     case 'duckinfo':
       const embed = new Discord.RichEmbed()
