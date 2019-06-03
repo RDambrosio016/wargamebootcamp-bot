@@ -252,7 +252,7 @@ client.on('message', async message => {
   if (commoncommands == true) {
     switch (commandName) {
       case 'rookie':
-        if (!message.member.roles.has(‘502524273731043328')) {
+        if (!message.member.roles.has('502524273731043328')) {
           message.member.addRole('502524273731043328');
           message.reply('Successfully added rookie role!');
         } else if (message.member.roles.has('502524273731043328')) {
@@ -261,7 +261,7 @@ client.on('message', async message => {
         }
         break;
       case 'lfg':
-        if (!message.member.roles.has('351126993838014476’)) {
+        if (!message.member.roles.has('351126993838014476')) {
           message.member.addRole('351126993838014476');
           message.reply('Successfully added lfg role!');
         } else if (message.member.roles.has('351126993838014476')) {
