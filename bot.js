@@ -14,7 +14,7 @@ let color;
 let displaylimit = '20';
 let limit = '3';
 var heatdata = require('./HeatKeData.json');
-let commoncommands = false;
+let commoncommands = true;
 const results = [];
 var units = require('./UnitData.json');
 try {
