@@ -220,7 +220,7 @@ client.on('message', async message => {
       break;
 
     case 'heat':
-      commands.ke(args, message, heatdata);
+      commands.heat(args, message, heatdata);
       break;
     case 'ke':
       commands.ke(args, message, heatdata);
