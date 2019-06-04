@@ -82,7 +82,7 @@ module.exports.botcommands = (client, admin) => {
 
   if(admin) {
   client.channels.get("506955344996597771").bulkDelete(2);
-  client.channels.get("506955344996597771").send(help).then(send(adminhelp));
+  client.channels.get("506955344996597771").send(help).then(client.channels.get("506955344996597771").send(adminhelp));
   } else {
     return;
   };
