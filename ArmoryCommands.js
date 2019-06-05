@@ -127,7 +127,7 @@ module.exports.page = (args, message, limit) => {
   let embed = format.formatting(matchingUnits5[index]);
   message.channel.send(embed).then(m => {
     m.react('◀')
-    .then(() => message.react('▶'))
+    .then(() => m.react('▶'))
     .catch(() => console.error('One of the emojis failed to react.'));
 
     const backFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id == message.author.id;
@@ -150,7 +150,7 @@ module.exports.page = (args, message, limit) => {
         index--;
         r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index + 1) + ' / ' + matchingUnits5.length);
+        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
           m.edit(embed);
       } else {
         r.remove(message.author);
@@ -172,7 +172,7 @@ module.exports.page = (args, message, limit) => {
         index++;
           r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index + 1) + ' / ' + matchingUnits5.length);
+        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
         m.edit(embed);
       }
       front.on('end', (collected, reason) => {
