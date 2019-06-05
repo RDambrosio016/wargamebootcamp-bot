@@ -149,7 +149,7 @@ module.exports.page = (args, message, limit) => {
         index--;
         r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length).catch(err => { console.log(err);});
+        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
           m.edit(embed);
       } else {
         r.remove(message.author);
@@ -171,7 +171,7 @@ module.exports.page = (args, message, limit) => {
         index++;
           r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length).catch(err => { console.log(err);});
+        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
         m.edit(embed);
       }
       });
