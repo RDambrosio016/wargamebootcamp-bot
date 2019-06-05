@@ -141,7 +141,6 @@ module.exports.page = (args, message, limit) => {
       time: 60000,
     });
 
-
     back.on('collect', r => {
       if (index === 0) {
         r.remove(message.author);
@@ -157,7 +156,7 @@ module.exports.page = (args, message, limit) => {
         return;
       }
     });
-    });
+
     back.on('end', (collected, reason) => {
       if (reason == 'time') {
         m.clearReactions();
@@ -181,6 +180,7 @@ module.exports.page = (args, message, limit) => {
           m.clearReactions();
         }
       });
+    });
 };
 
 
