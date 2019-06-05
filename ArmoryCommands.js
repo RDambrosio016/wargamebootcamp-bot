@@ -32,7 +32,7 @@ module.exports.git = (args, message, limit, displaylimit) => {
 
   if (matchingUnits.length > limit) {
     message.reply(allArgs.toUpperCase() + ' is included in ' + matchingUnits.length + ' units, please be more specific or use !gitspec (or !getspec) ');
-    if (matchingUnits.length < 30) {
+    if (matchingUnits.length < displaylimit) {
       i = matchingUnits[0];
       if (matchingUnits.length < 50) {
         const send = format.formatting(i);
@@ -90,6 +90,102 @@ module.exports.git = (args, message, limit, displaylimit) => {
 
 
 
+
+module.exports.page = (args, message, limit) => {
+
+  var allArgs = '';
+  for (let i = 0; i < args.length; i++) { //adds up all arguements after !git or !get into one single string named allArgs
+    allArgs += args[i].toLowerCase() + ' ';
+  }
+
+  allArgs = allArgs.replace(/^\s+|\s+$/g, ''); //strip any leading or trailing spaces
+
+  if (allArgs === '') {
+    message.reply('Command requires a parameter'); //if the user does !git <space> or !git, return and reply this.
+    return;
+  }
+
+  const matchingUnits5 = units.filter((i, index) => { //make matchingUnits into a filter of units
+
+    s1 = allArgs.replace(/[\s'-]*/g, '').toLowerCase();
+    s2 = i.Name.replace(/[\s'-]*/g, '').toLowerCase();
+
+    if (s2.match(s1)) { // check if unit includes allArgs
+      return i;
+    }
+  });
+  if (matchingUnits5.length === 0) {
+    message.reply('No units matched with the name ' + allArgs);
+  }
+
+  if (matchingUnits5.length > 10) {
+    message.reply('Too many units to display paging');
+    return;
+  }
+
+  let index = 0;
+  let embed = format.formatting(matchingUnits5[index]);
+  message.channel.send(embed).then(m => {
+    m.react('◀').then(
+      m.react('▶')
+    );
+    const backFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id == message.author.id;
+    const frontFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id == message.author.id;
+
+    const back = new Discord.ReactionCollector(m, backFilter, {
+      time: 60000,
+
+    });
+    const front = new Discord.ReactionCollector(m, frontFilter, {
+      time: 60000,
+    });
+    console.log(matchingUnits5.length);
+    console.log(index);
+
+    back.on('collect', r => {
+      if (index === 0) {
+        r.remove(message.author);
+        return;
+      } else if (index > 0 && index < matchingUnits5.length) {
+        index--;
+        r.remove(message.author);
+        embed = format.formatting(matchingUnits5[index]);
+        embed.setFooter(index + ' / ' + Number(matchingUnits5.length - 1));
+          m.edit(embed);
+      } else {
+        r.remove(message.author);
+        return;
+      }
+      back.on('end', (collected, reason) => {
+        if (reason == 'time') {
+          m.clearReactions();
+        }
+      });
+
+    });
+
+    front.on('collect', r => {
+      if (index === matchingUnits5.length - 1) {
+        r.remove(message.author);
+        return;
+      } else if (index < matchingUnits5.length) {
+        index++;
+          r.remove(message.author);
+        embed = format.formatting(matchingUnits5[index]);
+        embed.setFooter(index + ' / ' + Number(matchingUnits5.length - 1));
+        m.edit(embed);
+      }
+      front.on('end', (collected, reason) => {
+        if (reason == 'time') {
+          m.clearReactions();
+        }
+      });
+
+    });
+  }).catch(err => {
+    console.log(err);
+  });
+};
 
 
 
