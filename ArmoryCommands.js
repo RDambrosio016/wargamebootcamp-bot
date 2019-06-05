@@ -139,8 +139,7 @@ module.exports.page = (args, message, limit) => {
     const front = new Discord.ReactionCollector(m, frontFilter, {
       time: 60000,
     });
-    console.log(matchingUnits5.length);
-    console.log(index);
+
 
     back.on('collect', r => {
       if (index === 0) {
