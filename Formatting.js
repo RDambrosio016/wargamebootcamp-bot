@@ -380,7 +380,7 @@ module.exports.formatting = (i) => {
   weapon2 = weapon2 + (' | **Stabilizer**: ' + i.Weapon2HitProbabilityWhileMoving * 100 + '%');
   weapon3 = weapon3 + (' | **Stabilizer**: ' + i.Weapon3HitProbabilityWhileMoving * 100 + '%');
 
-
+  category = category + (' \n **Spec decks**: ' + i.Decks);
   const embed = new Discord.RichEmbed()
 
     .setTitle(title)

@@ -150,18 +150,18 @@ module.exports.page = (args, message, limit) => {
         index--;
         r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
+        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length).catch(err => { console.log(err);});
           m.edit(embed);
       } else {
         r.remove(message.author);
         return;
       }
-      back.on('end', (collected, reason) => {
-        if (reason == 'time') {
-          m.clearReactions();
-        }
-      });
-
+    });
+    });
+    back.on('end', (collected, reason) => {
+      if (reason == 'time') {
+        m.clearReactions();
+      }
     });
 
     front.on('collect', r => {
@@ -172,19 +172,15 @@ module.exports.page = (args, message, limit) => {
         index++;
           r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
+        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length).catch(err => { console.log(err);});
         m.edit(embed);
       }
+      });
       front.on('end', (collected, reason) => {
         if (reason == 'time') {
           m.clearReactions();
         }
       });
-
-    });
-  }).catch(err => {
-    console.log(err);
-  });
 };
 
 
