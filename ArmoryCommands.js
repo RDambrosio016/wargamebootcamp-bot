@@ -359,7 +359,11 @@ module.exports.list = (args, message, displaylimit) => {
   if(matchingUnits4.length < displaylimit) {
     matching = [];
     matchingUnits4.forEach((i) => {
-    matching.push('**' + i.Name + '** | ');
+      if(i > 1) {
+          matching.push('** | ' + i.Name + '**');
+      } else {
+        matching.push('**' + i.Name + '** | ');
+      }
 
   });
   message.reply(matching.join(''));
