@@ -126,9 +126,10 @@ module.exports.page = (args, message, limit) => {
   let index = 0;
   let embed = format.formatting(matchingUnits5[index]);
   message.channel.send(embed).then(m => {
-    m.react('◀').then(
-      m.react('▶')
-    );
+    m.react('◀')
+    .then(() => message.react('▶'))
+    .catch(() => console.error('One of the emojis failed to react.'));
+
     const backFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id == message.author.id;
     const frontFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id == message.author.id;
 
@@ -149,7 +150,7 @@ module.exports.page = (args, message, limit) => {
         index--;
         r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter(index + ' / ' + Number(matchingUnits5.length - 1));
+        embed.setFooter((index + 1) + ' / ' + matchingUnits5.length);
           m.edit(embed);
       } else {
         r.remove(message.author);
@@ -171,7 +172,7 @@ module.exports.page = (args, message, limit) => {
         index++;
           r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter(index + ' / ' + Number(matchingUnits5.length - 1));
+        embed.setFooter((index + 1) + ' / ' + matchingUnits5.length);
         m.edit(embed);
       }
       front.on('end', (collected, reason) => {
