@@ -124,11 +124,19 @@ module.exports.page = (args, message, limit) => {
   }
 
   let index = 0;
+  let indexbefore;
+  let indexafter;
   let embed = format.formatting(matchingUnits5[index]);
+  if (matchingUnits5.length === 1) {
+    embed = format.formatting(matchingUnits[0]);
+    message.channel.send(embed);
+    return;
+  }
+
   message.channel.send(embed).then(m => {
     m.react('◀')
-    .then(() => m.react('▶'))
-    .catch(() => console.error('One of the emojis failed to react.'));
+      .then(() => m.react('▶'))
+      .catch(() => console.error('One of the emojis failed to react.'));
 
     const backFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id == message.author.id;
     const frontFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id == message.author.id;
@@ -149,14 +157,15 @@ module.exports.page = (args, message, limit) => {
         index--;
         r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
-          m.edit(embed);
+        embed.setFooter('\n' + (index - -1) + ' / ' + matchingUnits5.length);
+        m.edit(embed).catch(err => {
+          console.log(err);
+        });
       } else {
         r.remove(message.author);
         return;
       }
     });
-
     back.on('end', (collected, reason) => {
       if (reason == 'time') {
         m.clearReactions();
@@ -169,18 +178,21 @@ module.exports.page = (args, message, limit) => {
         return;
       } else if (index < matchingUnits5.length) {
         index++;
-          r.remove(message.author);
+        r.remove(message.author);
         embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
-        m.edit(embed);
+        embed.setFooter((index - -1) + ' / ' + matchingUnits5.length);
+        m.edit(embed).catch(err => {
+          console.log(err);
+        });
+
       }
-      });
-      front.on('end', (collected, reason) => {
-        if (reason == 'time') {
-          m.clearReactions();
-        }
-      });
     });
+    front.on('end', (collected, reason) => {
+      if (reason == 'time') {
+        m.clearReactions();
+      }
+    });
+  });
 };
 
 
