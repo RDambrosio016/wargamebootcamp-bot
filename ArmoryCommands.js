@@ -129,69 +129,55 @@ module.exports.page = (args, message, limit) => {
   let embed = format.formatting(matchingUnits5[index]);
   if (matchingUnits5.length === 1) {
     embed = format.formatting(matchingUnits[0]);
+      embed.setFooter((index - -1) + ' / ' + matchingUnits5.length);
     message.channel.send(embed);
     return;
   }
 
   message.channel.send(embed).then(m => {
-    m.react('◀')
-      .then(() => m.react('▶'))
+    m.react('⬅')
+      .then(() => m.react('➡'))
       .catch(() => console.error('One of the emojis failed to react.'));
 
-    const backFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id == message.author.id;
-    const frontFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id == message.author.id;
+      const pagesFilter = (reaction, user) => user.id == message.author.id;
+      const pages = new Discord.ReactionCollector(m, pagesFilter, {
+        time: 60000,
+      });
 
-    const back = new Discord.ReactionCollector(m, backFilter, {
-      time: 60000,
+        pages.on('collect', r => {                  
 
-    });
-    const front = new Discord.ReactionCollector(m, frontFilter, {
-      time: 60000,
-    });
+          if (r.emoji.name == '⬅') {
+              if (index === 0) {
+                r.remove(message.author.id);
+                return;
+              } else if (index > 0 && index) {
+                index--;
+                embed = format.formatting(matchingUnits5[index]);
+                  embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
+                m.edit(embed).catch(err => { console.log(err); });
+                r.remove(message.author.id);
+              }
+          } else if (r.emoji.name == '➡') {
+              if(index === matchingUnits5.length - 1) {
+                r.remove(message.author.id);
+                return;
+              } else if (index < matchingUnits5.length - 1) {
+                index++;
+                embed = format.formatting(matchingUnits5[index]);
+                  embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
+                m.edit(embed).catch(err => { console.log(err); });
+                r.remove(message.author.id);
 
-    back.on('collect', r => {
-      if (index === 0) {
-        r.remove(message.author);
-        return;
-      } else if (index > 0 && index < matchingUnits5.length) {
-        index--;
-        r.remove(message.author);
-        embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter('\n' + (index - -1) + ' / ' + matchingUnits5.length);
-        m.edit(embed).catch(err => {
-          console.log(err);
-        });
-      } else {
-        r.remove(message.author);
-        return;
-      }
-    });
-    back.on('end', (collected, reason) => {
-      if (reason == 'time') {
-        m.clearReactions();
-      }
-    });
+              }
+          }
 
-    front.on('collect', r => {
-      if (index === matchingUnits5.length - 1) {
-        r.remove(message.author);
-        return;
-      } else if (index < matchingUnits5.length) {
-        index++;
-        r.remove(message.author);
-        embed = format.formatting(matchingUnits5[index]);
-        embed.setFooter((index - -1) + ' / ' + matchingUnits5.length);
-        m.edit(embed).catch(err => {
-          console.log(err);
         });
 
-      }
-    });
-    front.on('end', (collected, reason) => {
-      if (reason == 'time') {
-        m.clearReactions();
-      }
-    });
+        pages.on('end', (collected, reason) => {
+          if(reason == 'time') {
+            m.clearReactions();
+          }
+        });
   });
 };
 
