@@ -203,11 +203,11 @@ client.on('message', async message => {
 
 
       //start of the actual armory function of the bot
-      case 'gitpage':
+      case 'git':
       commands.page(args, message, limit);
       break;
 
-    case 'git':
+    case 'gitlist':
       commands.git(args, message, limit, displaylimit);
       break;
 
