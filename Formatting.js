@@ -421,13 +421,13 @@ module.exports.formatting = (i) => {
 
 
   if (i.Tab === 'INF') {
-    if (i.Weapon2Type == 'SAM') {
+    if (i.Weapon2Type == 'SAM' && i.Training !== '') {
       embed.attachFiles(['./Pictures/Inf/manpads.png']);
       embed.setThumbnail('attachment://manpads.png');
     } else if (i.Weapon2Type == 'ATGM' && Number(i.Strength) < 10) {
       embed.attachFiles(['./Pictures/Inf/atgms.png']);
       embed.setThumbnail('attachment://atgms.png');
-    } else if (i.Weapon2Type == 'AT' && i.Weapon3Name === '') {
+    } else if (i.Weapon2Type == 'AT' && i.Weapon3Name === '' && i.Training !== '') {
       embed.attachFiles(['./Pictures/Inf/fist.png']);
       embed.setThumbnail('attachment://fist.png');
     } else if (i.Weapon2Type == 'Flamethrower') {

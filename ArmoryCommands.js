@@ -128,7 +128,7 @@ module.exports.page = (args, message, limit) => {
   let indexafter;
   let embed = format.formatting(matchingUnits5[index]);
   if (matchingUnits5.length === 1) {
-    embed = format.formatting(matchingUnits[0]);
+    embed = format.formatting(matchingUnits5[0]);
       embed.setFooter((index - -1) + ' / ' + matchingUnits5.length);
     message.channel.send(embed);
     return;
@@ -144,7 +144,7 @@ module.exports.page = (args, message, limit) => {
         time: 60000,
       });
 
-        pages.on('collect', r => {                  
+        pages.on('collect', r => {
 
           if (r.emoji.name == '⬅') {
               if (index === 0) {
