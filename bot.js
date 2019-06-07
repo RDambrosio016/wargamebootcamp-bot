@@ -8,7 +8,7 @@ const token = process.env.token;
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
-let status = "Bob Ross";
+let status = "​";
 const csv = require('csv-parser');
 let color;
 let displaylimit = '20';
