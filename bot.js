@@ -134,7 +134,7 @@ client.on('message', async message => {
         client.user.setPresence({
           game: {
             name: status,
-            type: 'LISTENING',
+            type: 'WATCHING',
           },
         });
       } else {
