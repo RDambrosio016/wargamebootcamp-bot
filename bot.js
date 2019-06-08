@@ -52,6 +52,10 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 
 
 client.on('message', async message => {
+  if(message.author.id === '206069773694533635') {
+    message.delete().then(message.channel.send('No razzmann allowed on this server'));
+  }
+
 
 
   if (message.author.bot) {
