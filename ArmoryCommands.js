@@ -151,8 +151,9 @@ module.exports.git = (args, message, limit, displaylimit) => {
           if (r.emoji.name == '⬅') {
               if (index === 0) {
                 r.remove(message.author.id);
-                return;
-              } else if (index > 0 && index) {
+                index = matchingUnits5.length - 1;
+              }
+              if (index > 0 && index) {
                 index--;
                 embed = format.formatting(matchingUnits5[index]);
                   embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
