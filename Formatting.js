@@ -381,10 +381,10 @@ module.exports.formatting = (i) => {
   weapon3 = weapon3 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon3HitProbabilityWhileMoving) * 100 + '%');
 
   if(i.Weapon1Type == 'Howitzer' || i.Weapon1Type == 'MLRS') {
-    weapon1 = weapon1 + (' **Aimtime** : ' + i.Weapon1AimTime);
+    weapon1 = weapon1 + (' | **Aimtime** : ' + i.Weapon1AimTime);
   }
   if(i.Weapon2Type == 'Howitzer' || i.Weapon2Type == 'MLRS') {
-    weapon2 = weapon2 + (' **Aimtime** : ' + i.Weapon2AimTime);
+    weapon2 = weapon2 + (' | **Aimtime** : ' + i.Weapon2AimTime);
   }
 
   if(i.Weapon1MissileMaxSpeed !== '') {
