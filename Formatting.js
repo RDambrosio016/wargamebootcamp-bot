@@ -441,7 +441,7 @@ module.exports.formatting = (i) => {
     if (i.Weapon2Type == 'SAM' && i.Training !== '') {
       embed.attachFiles(['./Pictures/Inf/manpads.png']);
       embed.setThumbnail('attachment://manpads.png');
-    } else if (i.Weapon2Type == 'ATGM' && Number(i.Strength) < 10) {
+    } else if (i.Weapon2Type == 'ATGM' && Number(i.Strength) < 10 && i.Training !== '') {
       embed.attachFiles(['./Pictures/Inf/atgms.png']);
       embed.setThumbnail('attachment://atgms.png');
     } else if (i.Weapon2Type == 'AT' && i.Weapon3Name === '' && i.Training !== '') {
