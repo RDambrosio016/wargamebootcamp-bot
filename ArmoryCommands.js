@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const units = require('./UnitData.json');
 const format = require('./Formatting.js');
 
-module.exports.git = (args, message, limit, displaylimit) => {
+module.exports.gitlist = (args, message, limit, displaylimit) => {
 
   var allArgs = '';
   for (let i = 0; i < args.length; i++) { //adds up all arguements after !git or !get into one single string named allArgs
@@ -91,7 +91,7 @@ module.exports.git = (args, message, limit, displaylimit) => {
 
 
 
-module.exports.page = (args, message, limit) => {
+module.exports.git = (args, message, limit, displaylimit) => {
 
   var allArgs = '';
   for (let i = 0; i < args.length; i++) { //adds up all arguements after !git or !get into one single string named allArgs

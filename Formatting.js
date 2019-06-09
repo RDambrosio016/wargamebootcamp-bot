@@ -376,9 +376,26 @@ module.exports.formatting = (i) => {
   }
   description = description + ' | **Strength**: ' + i.Strength;
 
-  weapon1 = weapon1 + (' | **Stabilizer**: ' + i.Weapon1HitProbabilityWhileMoving * 100 + '%');
-  weapon2 = weapon2 + (' | **Stabilizer**: ' + i.Weapon2HitProbabilityWhileMoving * 100 + '%');
-  weapon3 = weapon3 + (' | **Stabilizer**: ' + i.Weapon3HitProbabilityWhileMoving * 100 + '%');
+  weapon1 = weapon1 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon1HitProbabilityWhileMoving) * 100 + '%');
+  weapon2 = weapon2 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon2HitProbabilityWhileMoving) * 100 + '%');
+  weapon3 = weapon3 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon3HitProbabilityWhileMoving) * 100 + '%');
+
+  if(i.Weapon1Type == 'Howitzer' || i.Weapon1Type == 'MLRS') {
+    weapon1 = weapon1 + ('**Aimtime** : ' + i.Weapon1AimTime);
+  }
+  if(i.Weapon2Type == 'Howitzer' || i.Weapon2Type == 'MLRS') {
+    weapon2 = weapon2 + ('**Aimtime** : ' + i.Weapon2AimTime);
+  }
+
+  if(i.Weapon1MissileMaxSpeed !== '') {
+    weapon1 = weapon1 + (' | **Missile Speed**: ' + i.Weapon1MissileMaxSpeed);
+  }
+  if(i.Weapon2MissileMaxSpeed !== '') {
+    weapon2 = weapon2 + (' | **Missile Speed**: ' + i.Weapon2MissileMaxSpeed);
+  }
+  if(i.Weapon3MissileMaxSpeed !== '') {
+    weapon3 = weapon3 + (' | **Missile Speed**: ' + i.Weapon3MissileMaxSpeed);
+  }
 
   category = category + (' \n **Spec decks**: ' + i.Decks);
   const embed = new Discord.RichEmbed()
@@ -452,10 +469,7 @@ module.exports.formatting = (i) => {
     embed.attachFiles(['./Pictures/Inf/command.png']);
     embed.setThumbnail('attachment://command.png');
   }
-  if (i.Tab == 'PLA' && i.Name == 'A10ATHUNDERBOLTII') {
-    embed.attachFiles(['./Pictures/Inf/thunderbolt.png']);
-    embed.setThumbnail('attachment://thunderbolt.png');
-  }
+
   if (i.Training == 'Elite') {
     embed.attachFiles(['./Pictures/Inf/commandos.png']);
     embed.setThumbnail('attachment://commandos.png');
