@@ -18,8 +18,8 @@ module.exports.gitlist = (args, message, limit, displaylimit) => {
 
   const matchingUnits = units.filter((i, index) => { //make matchingUnits into a filter of units
 
-    s1 = allArgs.replace(/[\s'-\.]*/g, '').toLowerCase();
-    s2 = i.Name.replace(/[\s'-\.]*/g, '').toLowerCase();
+    s1 = allArgs.replace(/[^\w]*/g, '').toLowerCase();
+    s2 = i.Name.replace(/[^\w]*/g, '').toLowerCase();
 
     if (s2.match(s1)) { // check if unit includes allArgs
       return i;
