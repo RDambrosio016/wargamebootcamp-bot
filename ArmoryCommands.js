@@ -151,7 +151,7 @@ module.exports.git = (args, message, limit, displaylimit) => {
           if (r.emoji.name == '⬅') {
               if (index === 0) {
                 r.remove(message.author.id);
-                index = matchingUnits5.length - 1;
+                index = matchingUnits5.length;
               }
               if (index > 0 && index) {
                 index--;
@@ -163,8 +163,9 @@ module.exports.git = (args, message, limit, displaylimit) => {
           } else if (r.emoji.name == '➡') {
               if(index === matchingUnits5.length - 1) {
                 r.remove(message.author.id);
-                return;
-              } else if (index < matchingUnits5.length - 1) {
+                index = 0;
+              }
+              if (index < matchingUnits5.length - 1) {
                 index++;
                 embed = format.formatting(matchingUnits5[index]);
                   embed.setFooter((index - - 1) + ' / ' + matchingUnits5.length);
