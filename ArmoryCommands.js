@@ -117,6 +117,7 @@ module.exports.git = (args, message, limit, displaylimit) => {
   });
   if (matchingUnits5.length === 0) {
     message.reply('No units matched with the name ' + allArgs);
+    return;
   }
 
   if (matchingUnits5.length > 10) {
