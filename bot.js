@@ -241,7 +241,7 @@ client.on('message', async message => {
         .setColor('GOLD')
         .setTitle('**Bootcamp/ Armory bot**')
         .setDescription('A bot developed by senorDickweed#7033 for the r/wargamebootcamp server, offers common commands and unit search functions, coded in discord.js, **for commands use !help**')
-        .addField('Acknowledgements', '1: **Tyrnek#2495** for letting me do this lol \n 2: **Lawlzer#4013** for helping a lot on the code \n 3: **Mbetts#9468** for helping me a lot on the formatting and the code \n 4: **Phlogis#9776** for helping with the data aspect of the units \n 5: **Crankytoaster#1240** for telling me everything wrong with it lol \n 6: **rogertheshrubb3r#0862** for the amazing regexp search algorithm \n ** 5: **everyone** on the testing server that helped me test the bot')
+        .addField('Acknowledgements', '1: **Tyrnek#2495** for letting me do this lol \n 2: **Lawlzer#4013** for helping a lot on the code \n 3: **Mbetts#9468** for helping me a lot on the formatting and the code \n 4: **Phlogis#9776** for helping with the data aspect of the units \n 5: **Crankytoaster#1240** for telling me everything wrong with it lol \n 6: **rogertheshrubb3r#0862** for the amazing regexp search algorithm and more \n 5: **everyone** on the testing server that helped me test the bot')
         .addField('Code', 'https://github.com/duckthecuck/wargamebootcamp-bot');
       message.channel.send(embed);
       break;

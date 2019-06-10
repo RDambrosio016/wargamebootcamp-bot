@@ -376,9 +376,9 @@ module.exports.formatting = (i) => {
   }
   description = description + ' | **Strength**: ' + i.Strength;
 
-  weapon1 = weapon1 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon1HitProbabilityWhileMoving) * 100 + '%');
-  weapon2 = weapon2 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon2HitProbabilityWhileMoving) * 100 + '%');
-  weapon3 = weapon3 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon3HitProbabilityWhileMoving) * 100 + '%');
+  weapon1 = weapon1 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon1HitProbabilityWhileMoving * 100) + '%');
+  weapon2 = weapon2 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon2HitProbabilityWhileMoving * 100) + '%');
+  weapon3 = weapon3 + (' | **Stabilizer**: ' + Math.trunc(i.Weapon3HitProbabilityWhileMoving * 100) + '%');
 
   if(i.Weapon1Type == 'Howitzer' || i.Weapon1Type == 'MLRS') {
     weapon1 = weapon1 + (' | **Aimtime** : ' + i.Weapon1AimTime);
