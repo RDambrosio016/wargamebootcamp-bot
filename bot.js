@@ -53,6 +53,7 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 
 client.on('message', async message => {
 
+  const member = await message.guild.fetchMember(message.mentions.users.first());
 
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
