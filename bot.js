@@ -23,7 +23,7 @@ fs.createReadStream('./vetaccuracy.csv')
   .on('data', (data) => results.push(data))
   .on('end', () => {
 
-    fs.writeFile('./Data/VetAccuracy.json', JSON.stringify(results), function(err) {
+    fs.writeFile('./VetAccuracy.json', JSON.stringify(results), function(err) {
     if (err) throw err;
     console.log('Replaced!');
     });
