@@ -13,21 +13,21 @@ const csv = require('csv-parser');
 let color;
 let displaylimit = '20';
 let limit = '3';
-var heatdata = require('./HeatKeData.json');
+var heatdata = require('./Data/HeatKeData.json');
 let commoncommands = true;
 const results = [];
-var units = require('./UnitData.json');
+var units = require('./Data/UnitData.json');
 
-// fs.createReadStream('./Heat-KeValues.csv')
-//   .pipe(csv())
-//   .on('data', (data) => results.push(data))
-//   .on('end', () => {
-//
-//     fs.writeFile('./HeatKeData.json', JSON.stringify(results), function(err) {
-//     if (err) throw err;
-//     console.log('Replaced!');
-//     });
-//   });
+fs.createReadStream('./vetaccuracy.csv')
+  .pipe(csv())
+  .on('data', (data) => results.push(data))
+  .on('end', () => {
+
+    fs.writeFile('./Data/VetAccuracy.json', JSON.stringify(results), function(err) {
+    if (err) throw err;
+    console.log('Replaced!');
+    });
+  });
 
 
 client.once('ready', () => {
