@@ -35,7 +35,7 @@ fs.createReadStream('./FinalDamageData.csv')
   .on('data', (data) => results.push(data))
   .on('end', () => {
 
-    fs.writeFile('./Beans.json', JSON.stringify(results), function(err) {
+    fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
     if (err) throw err;
     console.log(JSON.stringify(results));
     });
