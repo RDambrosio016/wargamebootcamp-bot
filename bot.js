@@ -236,7 +236,7 @@ client.on('message', async message => {
     break;
 
     case 'vet':
-    message.channel.send({files: ['./Data/Misc/VetTable.png']});
+    message.channel.send({files: ['./Pictures/Misc/VetTable.png']});
     break;
 
     case 'duckinfo':
