@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const units = require('./Data/UnitData.json');
 const format = require('./Formatting.js');
+const vet = require('./Data/Vet.json');
 
 module.exports.gitlist = (args, message, limit, displaylimit) => {
 
@@ -368,6 +369,12 @@ module.exports.list = (args, message, displaylimit) => {
 } else {
   message.reply('Too many units to display list');
 }
+
+
+};
+
+module.exports.vet = () => {
+
 
 
 };

@@ -18,16 +18,16 @@ let commoncommands = true;
 const results = [];
 var units = require('./Data/UnitData.json');
 
-fs.createReadStream('./vetaccuracy.csv')
-  .pipe(csv())
-  .on('data', (data) => results.push(data))
-  .on('end', () => {
-
-    fs.writeFile('./VetAccuracy.json', JSON.stringify(results), function(err) {
-    if (err) throw err;
-    console.log('Replaced!');
-    });
-  });
+// fs.createReadStream('./vetaccuracy.csv')
+//   .pipe(csv())
+//   .on('data', (data) => results.push(data))
+//   .on('end', () => {
+//
+//     fs.writeFile('./VetAccuracy.json', JSON.stringify(results), function(err) {
+//     if (err) throw err;
+//     console.log('Replaced!');
+//     });
+//   });
 
 
 client.once('ready', () => {
@@ -203,15 +203,13 @@ client.on('message', async message => {
 
 
 
-      //start of the actual armory function of the bot
+
       case 'git':
       commands.git(args, message, limit, displaylimit);
       break;
-
     case 'gitlist':
       commands.gitlist(args, message, limit, displaylimit);
       break;
-
       case 'list':
       commands.list(args, message, displaylimit);
       break;
@@ -235,6 +233,10 @@ client.on('message', async message => {
 
     case 'invite':
     commonCommands.invite(message, admin, args);
+    break;
+
+    case 'vet':
+    message.channel.send({files: ['./Data/VetAccuracy.png']});
     break;
 
     case 'duckinfo':
