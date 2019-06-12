@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const units = require('./Data/UnitData.json');
 const format = require('./Formatting.js');
-const vet = require('./Data/Vet.json');
+
 
 module.exports.gitlist = (args, message, limit, displaylimit) => {
 
