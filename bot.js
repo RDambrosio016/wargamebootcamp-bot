@@ -30,16 +30,16 @@ client.once('ready', () => {
   }); //sets the bot's status to the default status
 });
 
-fs.createReadStream('./FinalDamageData.csv')
-  .pipe(csv())
-  .on('data', (data) => results.push(data))
-  .on('end', () => {
-
-    fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
-    if (err) throw err;
-    console.log(JSON.stringify(results));
-    });
-  });
+// fs.createReadStream('./FinalDamageData.csv')
+//   .pipe(csv())
+//   .on('data', (data) => results.push(data))
+//   .on('end', () => {
+//
+//     fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
+//     if (err) throw err;
+//     console.log(JSON.stringify(results));
+//     });
+//   });
 
 
 
@@ -221,7 +221,9 @@ client.on('message', async message => {
     case 'gitspec':
     commands.gitspec(args, message, limit, displaylimit);
       break;
-
+      case 'damage':
+        commands.armor(args, message);
+      break;
     case 'heat':
       commands.heat(args, message, heatdata);
       break;

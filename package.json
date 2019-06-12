@@ -19,7 +19,7 @@
   "dependencies": {
     "csv-parse": "^4.4.1",
     "csv-parser": "^2.3.0",
-    "discord.js": "^11.5.0",
+    "discord.js": "^11.5.1",
     "firstline": "^2.0.2",
     "fs": "0.0.1-security",
     "jsonfile": "^5.0.0",

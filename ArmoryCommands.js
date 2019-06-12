@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const units = require('./Data/UnitData.json');
 const format = require('./Formatting.js');
-
+const damage = require('./Data/FinalArmorData.json');
 
 module.exports.gitlist = (args, message, limit, displaylimit) => {
 
@@ -204,8 +204,8 @@ module.exports.gitpm = (args, message) => {
 
   const matchingUnits3 = units.filter((i, index) => { //make matchingUnits into a filter of units
 
-    s1 = allArgs.replace(/[\s'-]*/g, '').toLowerCase();
-    s2 = i.Name.replace(/[\s'-]*/g, '').toLowerCase();
+    s1 = allArgs.replace(/[^\w]/g, '').toLowerCase();
+    s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
 
     if (s2.match(s1)) { // check if unit includes allArgs
       return i;
@@ -264,8 +264,8 @@ module.exports.gitspec = (args, message, limit, displaylimit) => {
 
   const matchingUnits2 = units.filter((i, index) => { //make matchingUnits into a filter of units
 
-    s1 = allArgs.replace(/[\s'-]*/g, '').toLowerCase();
-    s2 = i.Name.replace(/[\s'-]*/g, '').toLowerCase();
+    s1 = allArgs.replace(/[^\w]/g, '').toLowerCase();
+    s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
 
     if (s2 == s1) { // check if unit includes allArgs
       return i;
@@ -343,8 +343,8 @@ module.exports.list = (args, message, displaylimit) => {
 
   const matchingUnits4 = units.filter((i, index) => { //make matchingUnits into a filter of units
 
-    s1 = allArgs.replace(/[\s'-]*/g, '').toLowerCase();
-    s2 = i.Name.replace(/[\s'-]*/g, '').toLowerCase();
+    s1 = allArgs.replace(/[^\w]/g, '').toLowerCase();
+    s2 = i.Name.replace(/[^\w]/g, '').toLowerCase();
 
     if (s2.match(s1)) { // check if unit includes allArgs
       return i;
@@ -404,8 +404,8 @@ module.exports.ke = (args, message, heatdata) => {
     const embed = new Discord.RichEmbed()
       .setTitle(i.ArmorAP + ' Armor Damage Table')
       .setColor('GREEN')
-      .addField('1 - 18 **KE**', '**AP 1**: ' + i.KE1 + '**\nAP 2**: ' + i.KE2 + '**\nAP 3**: ' + i.KE3 + '\n**AP 4**: ' + i.KE4 + '**\nAP 5**: ' + i.KE5 + '\n**AP 6**: ' + i.KE6 + '\n**AP 7**: ' + i.KE7 + '\n**AP 8**: ' + i.KE8 + '\n**AP 9**: ' + i.KE9 + '**\nAP 10**: ' + i.KE10 + '**\nAP 11**: ' + i.KE11 + '**\nAP 12**: ' + i.KE12 + '**\nAP 13**: ' + i.KE13 + '**\nAP 14**: ' + i.KE14 + '**\nAP 15**: ' + i.KE15 + '**\nAP 16**: ' + i.KE16 + '**\nAP 17**: ' + i.KE17 + '**\nAP 18**: ' + i.KE18, true)
-      .addField('19 - 36 **KE**', '**AP 19**: ' + i.KE19 + '\n**AP 20**: ' + i.KE20 + '\n**AP 21**: ' + i.KE21 + '\n**AP 22**: ' + i.KE22 + '\n**AP 23**: ' + i.KE23 + '**\nAP 24**: ' + i.KE24 + '\n**AP 25**: ' + i.KE25 + '\n**AP 26**: ' + i.KE26 + '\n**AP 27**: ' + i.KE27 + '\n**AP 28**: ' + i.KE28 + '\n**AP 29**: ' + i.KE29 + '\n**AP 30**: ' + i.KE30 + '\n**AP 31**: ' + i.KE31 + '\n**AP 32**: ' + i.KE32 + '\n**AP 33**: ' + i.KE33 + '\n**AP 34**: ' + i.KE34 + '\n**AP 35**: ' + i.KE35 + '\n**KE 36**: ' + i.KE36, true);
+      .addField('​', '**AP 1**: ' + i.KE1 + '**\nAP 2**: ' + i.KE2 + '**\nAP 3**: ' + i.KE3 + '\n**AP 4**: ' + i.KE4 + '**\nAP 5**: ' + i.KE5 + '\n**AP 6**: ' + i.KE6 + '\n**AP 7**: ' + i.KE7 + '\n**AP 8**: ' + i.KE8 + '\n**AP 9**: ' + i.KE9 + '**\nAP 10**: ' + i.KE10 + '**\nAP 11**: ' + i.KE11 + '**\nAP 12**: ' + i.KE12 + '**\nAP 13**: ' + i.KE13 + '**\nAP 14**: ' + i.KE14 + '**\nAP 15**: ' + i.KE15, true)
+      .addField('​', '**\nAP 16**: ' + i.KE16 + '**\nAP 17**: ' + i.KE17 + '**\nAP 18**: ' + i.KE18 + '**AP 19**: ' + i.KE19 + '\n**AP 20**: ' + i.KE20 + '\n**AP 21**: ' + i.KE21 + '\n**AP 22**: ' + i.KE22 + '\n**AP 23**: ' + i.KE23 + '**\nAP 24**: ' + i.KE24 + '\n**AP 25**: ' + i.KE25 + '\n**AP 26**: ' + i.KE26 + '\n**AP 27**: ' + i.KE27 + '\n**AP 28**: ' + i.KE28 + '\n**AP 29**: ' + i.KE29 + '\n**AP 30**: ' + i.KE30, true);
 
     message.channel.send(embed);
   });
@@ -446,6 +446,42 @@ module.exports.heat = (args, message, heatdata) => {
 
     message.channel.send(embed);
   });
+
+
+};
+
+module.exports.armor = (args, message) => {
+  let title;
+  if(isNaN(args[0]) === true || args[0] > 30 || args[0] < 1) {
+    message.reply('Please use a valid HEAT or KE value between 1 and 30');
+    return;
+  }
+
+  args[0] = (args[0].replace(/[^\d]/g, ''));
+  const matchingArmor = damage.filter((i, index) => {
+    const replacedarmor = (i.ArmorAP.replace(/[^\d]/g, ''));
+    if (replacedarmor === args[0]) {
+      return i;
+    }
+  });
+
+    const embed = new Discord.RichEmbed()
+      .setTitle(args[0] + ' Damage table')
+      .setColor('GOLD');
+
+    matchingArmor.forEach((i) => {
+        if (i.ArmorAP.replace(/[\s\d]/g, '') == 'AP') {
+          title = 'HEAT';
+        }
+        if(i.ArmorAP.replace(/[\s\d]/g, '') == 'KE') {
+          title = 'KE';
+        }
+        embed.addField(title, '**0 AV**: ' + i.Armor0 + '\n**1 AV**: ' + i.Armor1 + '\n**2 AV**: ' + i.Armor2 + '\n**3 AV**: ' + i.Armor3 + '\n**4 AV**: ' + i.Armor4 + '\n**5 AV**: ' + i.Armor5 + '\n**6 AV**: ' + i.Armor6 + '\n**7 AV**: ' + i.Armor7 + '\n**8 AV**: ' + i.Armor8 + '\n**9 AV**: ' + i.Armor9 + '\n**10 AV**: ' + i.Armor10 + '\n**11 AV**: ' + i.Armor11 + '\n**12 AV**: ' + i.Armor12 + '\n**13 AV**: ' + i.Armor13 + '\n**14 AV**: ' + i.Armor14 + '\n**15 AV**: ' + i.Armor15 + '\n**16 AV**: ' + i.Armor16 + '\n**17 AV**: ' + i.Armor17 + '\n**18 AV**: ' + i.Armor18 + '\n**19 AV**: ' + i.Armor19 + '\n**20 AV**: ' + i.Armor20 + '\n**21 AV**: ' + i.Armor21 + '\n**22 AV**: ' + i.Armor22 + '\n**23 AV**: ' + i.Armor23 + '\n**24 AV**: ' + i.Armor24 + '\n**25 AV**: ' + i.Armor25, true);
+
+
+      });
+      message.channel.send(embed);
+
 
 
 };
