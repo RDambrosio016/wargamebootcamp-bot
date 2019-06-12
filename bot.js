@@ -37,7 +37,7 @@ fs.createReadStream('./FinalDamageData.csv')
 
     fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
     if (err) throw err;
-    console.log(results);
+    console.log(JSON.stringify(results));
     });
   });
 
