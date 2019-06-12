@@ -18,16 +18,6 @@ let commoncommands = true;
 const results = [];
 var units = require('./Data/UnitData.json');
 
-fs.createReadStream('./FinalDamageData.csv')
-  .pipe(csv())
-  .on('data', (data) => results.push(data))
-  .on('end', () => {
-
-    fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
-    if (err) throw err;
-    console.log('Replaced!');
-    });
-  });
 
 
 client.once('ready', () => {
@@ -39,6 +29,18 @@ client.once('ready', () => {
     },
   }); //sets the bot's status to the default status
 });
+
+fs.createReadStream('./FinalDamageData.csv')
+  .pipe(csv())
+  .on('data', (data) => results.push(data))
+  .on('end', () => {
+
+    fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
+    if (err) throw err;
+    console.log('Replaced!');
+    });
+  });
+
 
 
 String.prototype.replaceAll = function(search, replacement) {
