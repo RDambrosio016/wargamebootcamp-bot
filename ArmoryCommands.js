@@ -450,7 +450,7 @@ module.exports.heat = (args, message, heatdata) => {
 
 };
 
-module.exports.armor = (args, message) => {
+module.exports.aptable = (args, message) => {
   let title;
   if(isNaN(args[0]) === true || args[0] > 30 || args[0] < 1) {
     message.reply('Please use a valid HEAT or KE value between 1 and 30');
@@ -476,7 +476,7 @@ module.exports.armor = (args, message) => {
         if(i.ArmorAP.replace(/[\s\d]/g, '') == 'KE') {
           title = 'KE';
         }
-        embed.addField(title, '**0 AV**: ' + i.Armor0 + '\n**1 AV**: ' + i.Armor1 + '\n**2 AV**: ' + i.Armor2 + '\n**3 AV**: ' + i.Armor3 + '\n**4 AV**: ' + i.Armor4 + '\n**5 AV**: ' + i.Armor5 + '\n**6 AV**: ' + i.Armor6 + '\n**7 AV**: ' + i.Armor7 + '\n**8 AV**: ' + i.Armor8 + '\n**9 AV**: ' + i.Armor9 + '\n**10 AV**: ' + i.Armor10 + '\n**11 AV**: ' + i.Armor11 + '\n**12 AV**: ' + i.Armor12 + '\n**13 AV**: ' + i.Armor13 + '\n**14 AV**: ' + i.Armor14 + '\n**15 AV**: ' + i.Armor15 + '\n**16 AV**: ' + i.Armor16 + '\n**17 AV**: ' + i.Armor17 + '\n**18 AV**: ' + i.Armor18 + '\n**19 AV**: ' + i.Armor19 + '\n**20 AV**: ' + i.Armor20 + '\n**21 AV**: ' + i.Armor21 + '\n**22 AV**: ' + i.Armor22 + '\n**23 AV**: ' + i.Armor23 + '\n**24 AV**: ' + i.Armor24 + '\n**25 AV**: ' + i.Armor25, true);
+        embed.addField(title, '**0 AV**: ' + i.Armor0 + '\n**1 AV**: ' + i.Armor1 + '\n**2 AV**: ' + i.Armor2 + '\n**3 AV**: ' + i.Armor3 + '\n**4 AV**: ' + i.Armor4 + '\n**5 AV**: ' + i.Armor5 + '\n**6 AV**: ' + i.Armor6 + '\n**7 AV**: ' + i.Armor7 + '\n**8 AV**: ' + i.Armor8 + '\n**9 AV**: ' + i.Armor9 + '\n**10 AV**: ' + i.Armor10 + '\n**11 AV**: ' + i.Armor11 + '\n**12 AV**: ' + i.Armor12 + '\n**13 AV**: ' + i.Armor13 + '\n**14 AV**: ' + i.Armor14 + '\n**15 AV**: ' + i.Armor15 + '\n**16 AV**: ' + i.Armor16 + '\n**17 AV**: ' + i.Armor17 + '\n**18 AV**: ' + i.Armor18 + '\n**19 AV**: ' + i.Armor19 + '\n**20 AV**: ' + i.Armor20 + '\n**21 AV**: ' + i.Armor21 + '\n**22 AV**: ' + i.Armor22 + '\n**23 AV**: ' + i.Armor23, true);
 
 
       });

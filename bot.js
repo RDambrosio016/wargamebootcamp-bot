@@ -221,8 +221,8 @@ client.on('message', async message => {
     case 'gitspec':
     commands.gitspec(args, message, limit, displaylimit);
       break;
-      case 'damage':
-        commands.armor(args, message);
+      case 'aptable':
+        commands.aptable(args, message);
       break;
     case 'heat':
       commands.heat(args, message, heatdata);
