@@ -27,7 +27,8 @@
     "node-fetch": "^2.6.0",
     "papaparse": "^4.6.3",
     "pm2": "^3.5.1",
-    "q": "^1.5.1"
+    "q": "^1.5.1",
+    "string-similarity": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0"

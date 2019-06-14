@@ -17,7 +17,7 @@ var heatdata = require('./Data/HeatKeData.json');
 let commoncommands = true;
 const results = [];
 var units = require('./Data/UnitData.json');
-
+var stringSimilarity = require('string-similarity');
 
 
 client.once('ready', () => {
@@ -204,7 +204,13 @@ client.on('message', async message => {
 
 
 
-
+   case 'similarity':
+       argsCommaSplit[0] = argsCommaSplit[0].replaceAll('!similarity', '').replaceAll(' ', '').toLowerCase();
+       argsCommaSplit[1] = argsCommaSplit[1].replaceAll(' ', '').toLowerCase();
+     var similarity = stringSimilarity.compareTwoStrings(argsCommaSplit[0], argsCommaSplit[1]);
+     console.log('"' + argsCommaSplit[0] + '" | "' + argsCommaSplit[1] + '"');
+   message.channel.send(Math.round(similarity * 100) + '%');
+       break;
 
       case 'git':
       commands.git(args, message, limit, displaylimit);
