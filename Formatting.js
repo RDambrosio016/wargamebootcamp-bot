@@ -21,12 +21,12 @@ module.exports.wformatting = (index, data, message) => {
     let title = '**' + doc.title + '**';
     doc = doc.json();
     for(let i = 0; i < doc.sections[0].paragraphs[0].sentences.length; i++) {
-      description = description + doc.sections[0].paragraphs[0].sentences[i].text;
+      description = description +  ' ' + doc.sections[0].paragraphs[0].sentences[i].text;
     }
     let paragraph2 = '';
     if(doc.sections[0].paragraphs[1] !== undefined) {
     for(let i = 0; i < doc.sections[0].paragraphs[1].sentences.length; i++) {
-      paragraph2 = paragraph2 + doc.sections[0].paragraphs[1].sentences[i].text;
+      paragraph2 = paragraph2 + ' ' + doc.sections[0].paragraphs[1].sentences[i].text;
     }
     }
     let fulldescription = description + '\n\n' + paragraph2;
