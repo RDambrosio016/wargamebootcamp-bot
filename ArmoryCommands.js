@@ -453,7 +453,7 @@ module.exports.heat = (args, message, heatdata) => {
 module.exports.aptable = (args, message) => {
   let title;
   if(isNaN(args[0]) === true || args[0] > 30 || args[0] < 1) {
-    message.reply('Please use a valid HEAT or KE value between 1 and 30');
+    message.reply('Please use a valid HEAT or KE value between 1 and 30').catch(err => { console.log(err);});
     return;
   }
 
@@ -480,7 +480,9 @@ module.exports.aptable = (args, message) => {
 
 
       });
-      message.channel.send(embed);
+      message.channel.send(embed).catch(err => {
+        console.log(err + 'Error on line 484 armoryCommands.js');
+      });
 
 
 

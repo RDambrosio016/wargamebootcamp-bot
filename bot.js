@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const prefix = '!';
 const commands = require('./ArmoryCommands.js');
 const commonCommands = require('./Commands.js');
-const token = process.env.token;
+const token = 'NTc3NTczMTUxNzk4NTkxNDk5.XQ6CMg.vsYdk0GoX_uK0OyCbYuwZMdl7NY';
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
@@ -56,6 +56,7 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 client.on('message', async message => {
 
  message.member = await message.guild.fetchMember(message.author.id);
+
 
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
@@ -205,10 +206,9 @@ client.on('message', async message => {
 
 
    case 'similarity':
-       argsCommaSplit[0] = argsCommaSplit[0].replaceAll('!similarity', '').replaceAll(' ', '').toLowerCase();
-       argsCommaSplit[1] = argsCommaSplit[1].replaceAll(' ', '').toLowerCase();
+       argsCommaSplit[0] = argsCommaSplit[0].replaceAll(/(\w*!similarity\w*)*\s/gi, '').toLowerCase();
+       argsCommaSplit[1] = argsCommaSplit[1].replaceAll(/\s/g, '').toLowerCase();
      var similarity = stringSimilarity.compareTwoStrings(argsCommaSplit[0], argsCommaSplit[1]);
-     console.log('"' + argsCommaSplit[0] + '" | "' + argsCommaSplit[1] + '"');
    message.channel.send(Math.round(similarity * 100) + '%');
        break;
 
@@ -243,6 +243,11 @@ client.on('message', async message => {
 
     case 'invite':
     commonCommands.invite(message, admin, args);
+    break;
+
+    case 'wiki':
+    case 'wikipedia':
+    commonCommands.wikipedia(message, args);
     break;
 
     case 'vet':

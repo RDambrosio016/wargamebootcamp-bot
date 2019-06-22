@@ -1,8 +1,76 @@
-const Discord = require('discord.js');
+
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
   return target.replace(new RegExp(search, 'g'), replacement);
 };
+const wtf = require('wtf_wikipedia');
+const fetch = require('node-fetch');
+const Discord = require('discord.js');
+const moment = require('moment');
+
+module.exports.wformatting = (index, data, message) => {
+  const url = data[3][index];
+  data[1][index].trim();
+  let input = data[1][index];
+  input = input.replace(/[\s+]/g, '_');
+  (async () => {;
+    var doc = await wtf.fetch(input);
+    let doc2 = doc.images();
+
+    let description = '';
+    let title = '**' + doc.title + '**';
+    doc = doc.json();
+    for(let i = 0; i < doc.sections[0].paragraphs[0].sentences.length; i++) {
+      description = description + doc.sections[0].paragraphs[0].sentences[i].text;
+    }
+    let paragraph2 = '';
+    if(doc.sections[0].paragraphs[1] !== undefined) {
+    for(let i = 0; i < doc.sections[0].paragraphs[1].sentences.length; i++) {
+      paragraph2 = paragraph2 + doc.sections[0].paragraphs[1].sentences[i].text;
+    }
+    }
+    let fulldescription = description + '\n\n' + paragraph2;
+    if(fulldescription.length > 2000) fulldescription.length = 1500;
+    fulldescription = fulldescription + '...';
+
+    let image = '';
+    if(doc2[0] !== undefined) {
+      image = doc2[0].url();
+    }
+    // console.log(JSON.stringify(doc));
+    const embed = new Discord.RichEmbed()
+    .setAuthor('Entry for ' + input.replace(/[\_+]/g, ' '), 'https://imgur.com/ab2t4Kh.png')
+    .setTitle(data[1][index])
+    .setURL(url)
+    .setDescription(fulldescription)
+    .setThumbnail(image)
+    .setColor('WHITE')
+    .setFooter('Via wikipedia.com • Today at ' + moment().format('LTS'), 'https://imgur.com/yBUUNmd.png');
+    const filter = (reaction, user, member) => { //make a filter of only the reaction wastebasket made by the user
+      return ['🗑'].includes(reaction.emoji.name) && user.id === message.author.id;
+    };
+    message.channel.send(embed).then(m => {
+      m.react('🗑');
+      m.awaitReactions(filter, {
+          max: 1,
+          time: 7000,
+          errors: ['Time'],
+        })
+        .then(collected => {
+          const reaction = collected.first();
+          if (reaction.emoji.name === '🗑') {
+            m.delete().then(() => {
+                message.delete(message).catch(err => { });
+            });
+          }
+        }).catch(err => {
+          m.clearReactions().catch(err => {});
+        });
+    });
+    })();
+
+};
+
 module.exports.formatting = (i) => {
 
   if (i.Name === '') {
@@ -439,43 +507,31 @@ module.exports.formatting = (i) => {
 
   if (i.Tab === 'INF') {
     if (i.Weapon2Type == 'SAM' && i.Training !== '') {
-      embed.attachFiles(['./Pictures/Inf/manpads.png']);
-      embed.setThumbnail('attachment://manpads.png');
+      embed.setThumbnail('https://imgur.com/Fsu5xhP.png');
     } else if (i.Weapon2Type == 'ATGM' && Number(i.Strength) < 10 && i.Training !== '') {
-      embed.attachFiles(['./Pictures/Inf/atgms.png']);
-      embed.setThumbnail('attachment://atgms.png');
+      embed.setThumbnail('https://imgur.com/CyGxIIc.png');
     } else if (i.Weapon2Type == 'AT' && i.Weapon3Name === '' && i.Training !== '') {
-      embed.attachFiles(['./Pictures/Inf/fist.png']);
-      embed.setThumbnail('attachment://fist.png');
+      embed.setThumbnail('https://imgur.com/Kafpr4d.png');
     } else if (i.Weapon2Type == 'Flamethrower') {
-      embed.attachFiles(['./Pictures/Inf/flamers.png']);
-      embed.setThumbnail('attachment://flamers.png');
+      embed.setThumbnail('https://imgur.com/y5h3LEE.png');
     } else if (i.Training == 'Shock' && Number(i.MaxSpeed) > 38) {
-      embed.attachFiles(['./Pictures/Inf/lightinfantry.png']);
-      embed.setThumbnail('attachment://lightinfantry.png');
+      embed.setThumbnail('https://imgur.com/etyRZVH.png');
     } else if (i.Training == 'Shock' && Number(i.MaxSpeed) < 38) {
-      embed.attachFiles(['./Pictures/Inf/lineinfantry.png']);
-      embed.setThumbnail('attachment://lineinfantry.png');
+      embed.setThumbnail('https://imgur.com/uIFXG9x.png');
     } else if (i.Training == 'Regular' && Number(i.MaxSpeed) < 31) {
-      embed.attachFiles(['./Pictures/Inf/lineinfantry.png']);
-      embed.setThumbnail('attachment://lineinfantry.png');
-
+      embed.setThumbnail('https://imgur.com/uIFXG9x.png');
     } else if (i.Training == 'Regular' && Number(i.MaxSpeed) > 31) {
-      embed.attachFiles(['./Pictures/Inf/lightinfantry.png']);
-      embed.setThumbnail('attachment://lightinfantry.png');
+      embed.setThumbnail('https://imgur.com/etyRZVH.png');
     }
   }
   if (i.Tab == 'LOG' && i.Training !== '') {
-    embed.attachFiles(['./Pictures/Inf/command.png']);
-    embed.setThumbnail('attachment://command.png');
+    embed.setThumbnail('https://imgur.com/jdkNJNj.png');
   }
 
   if (i.Training == 'Elite') {
-    embed.attachFiles(['./Pictures/Inf/commandos.png']);
-    embed.setThumbnail('attachment://commandos.png');
+    embed.setThumbnail('https://imgur.com/upNpaW8.png');
   } else if (i.Training !== 'Elite' && i.Training !== '' && i.Tab == 'REC') {
-    embed.attachFiles(['./Pictures/Inf/recon.png']);
-    embed.setThumbnail('attachment://recon.png');
+    embed.setThumbnail('https://imgur.com/xB5ISIK.png');
   }
 
   return embed;

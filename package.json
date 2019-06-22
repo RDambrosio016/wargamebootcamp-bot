@@ -23,12 +23,14 @@
     "firstline": "^2.0.2",
     "fs": "0.0.1-security",
     "jsonfile": "^5.0.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.5.9",
     "node-fetch": "^2.6.0",
     "papaparse": "^4.6.3",
     "pm2": "^3.5.1",
     "q": "^1.5.1",
-    "string-similarity": "^3.0.0"
+    "string-similarity": "^3.0.0",
+    "wtf_wikipedia": "^7.3.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0"
