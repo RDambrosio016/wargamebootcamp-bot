@@ -99,7 +99,7 @@ module.exports.botcommands = (client, admin) => {
       }
       allArgs = allArgs.trim();
       allArgs = allArgs.replace(/[\s+]/g, '_');
-      const searchurl = search + allArgs;
+      let searchurl = search + allArgs;
       searchurl = searchurl.replace(/[\s+]/g, '_');
         fetch(searchurl)
       .then(res => res.json())
