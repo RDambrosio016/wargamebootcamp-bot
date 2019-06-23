@@ -245,11 +245,6 @@ client.on('message', async message => {
     commonCommands.invite(message, admin, args);
     break;
 
-    case 'wiki':
-    case 'wikipedia':
-    commonCommands.wikipedia(message, args);
-    break;
-
     case 'vet':
     message.channel.send({files: ['./Pictures/Misc/VetTable.png']});
     break;
