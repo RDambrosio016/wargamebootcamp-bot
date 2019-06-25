@@ -213,7 +213,7 @@ client.on('message', async message => {
        break;
 
        case 'userinvite':
-       commonCommands.userinvite();
+       commonCommands.userinvite(message);
        break;
       case 'git':
       commands.git(args, message, limit, displaylimit);
