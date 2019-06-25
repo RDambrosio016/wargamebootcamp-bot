@@ -212,7 +212,7 @@ client.on('message', async message => {
    message.channel.send(Math.round(similarity * 100) + '%');
        break;
 
-       case 'invite':
+       case 'userinvite':
        commonCommands.userinvite();
        break;
       case 'git':
