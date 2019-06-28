@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const prefix = '!';
 const commands = require('./ArmoryCommands.js');
 const commonCommands = require('./Commands.js');
-const token = process.env.token;
+const token = 'NTg0OTIwMzIyMjM5ODg5NDA4.XRYKfw.dNa6LrwK0K1fYo4m9D5kxkxNP64';
 const format = require('./Formatting.js');
 const fs = require('fs');
 const Q = require('q');
@@ -233,11 +233,14 @@ client.on('message', async message => {
       case 'aptable':
         commands.aptable(args, message);
       break;
-    case 'heat':
-      commands.heat(args, message, heatdata);
-      break;
-    case 'ke':
+    case 'armor':
       commands.ke(args, message, heatdata);
+    break;
+    case 'ke':
+      commands.ketable(args, message);
+    break;
+    case 'heat':
+      commands.heattable(args, message);
     break;
 
     case "resetcommands":

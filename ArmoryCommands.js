@@ -403,57 +403,19 @@ module.exports.ke = (args, message, heatdata) => {
   kedata.forEach((i) => {
     const embed = new Discord.RichEmbed()
       .setTitle(i.ArmorAP + ' Armor Damage Table')
-      .setColor('GREEN')
-      .addField('​', '**AP 1**: ' + i.KE1 + '**\nAP 2**: ' + i.KE2 + '**\nAP 3**: ' + i.KE3 + '\n**AP 4**: ' + i.KE4 + '**\nAP 5**: ' + i.KE5 + '\n**AP 6**: ' + i.KE6 + '\n**AP 7**: ' + i.KE7 + '\n**AP 8**: ' + i.KE8 + '\n**AP 9**: ' + i.KE9 + '**\nAP 10**: ' + i.KE10 + '**\nAP 11**: ' + i.KE11 + '**\nAP 12**: ' + i.KE12 + '**\nAP 13**: ' + i.KE13 + '**\nAP 14**: ' + i.KE14 + '**\nAP 15**: ' + i.KE15, true)
-      .addField('​', '**AP 16**: ' + i.KE16 + '**\nAP 17**: ' + i.KE17 + '**\nAP 18**: ' + i.KE18 + '\n**AP 19**: ' + i.KE19 + '\n**AP 20**: ' + i.KE20 + '\n**AP 21**: ' + i.KE21 + '\n**AP 22**: ' + i.KE22 + '\n**AP 23**: ' + i.KE23 + '**\nAP 24**: ' + i.KE24 + '\n**AP 25**: ' + i.KE25 + '\n**AP 26**: ' + i.KE26 + '\n**AP 27**: ' + i.KE27 + '\n**AP 28**: ' + i.KE28 + '\n**AP 29**: ' + i.KE29 + '\n**AP 30**: ' + i.KE30, true);
+      .setColor('WHITE')
+      .addField('​', '**AP 1**: ' + i.KE1 + '**\nAP 2**: ' + i.KE2 + '**\nAP 3**: ' + i.KE3 + '\n**AP 4**: ' + i.KE4 + '**\nAP 5**: ' + i.KE5 + '\n**AP 6**: ' + i.KE6 + '\n**AP 7**: ' + i.KE7 + '\n**AP 8**: ' + i.KE8 + '\n**AP 9**: ' + i.KE9 + '**\nAP 10**: ' + i.KE10 + '**\nAP 11**: ' + i.KE11 + '**\nAP 12**: ' + i.KE12 + '**\nAP 13**: ' + i.KE13 + '**\nAP 14**: ' + i.KE14 + '**\nAP 15**: ' + i.KE15 + '**\nAP 16**: ' + i.KE16 + '**\nAP 17**: ' + i.KE17 + '**\nAP 18**: ' + i.KE18 + '\n**AP 19**: ' + i.KE19 + '\n**AP 20**: ' + i.KE20 + '\n**AP 21**: ' + i.KE21 + '\n**AP 22**: ' + i.KE22 + '\n**AP 23**: ' + i.KE23 + '**\nAP 24**: ' + i.KE24 + '\n**AP 25**: ' + i.KE25 + '\n**AP 26**: ' + i.KE26 + '\n**AP 27**: ' + i.KE27 + '\n**AP 28**: ' + i.KE28 + '\n**AP 29**: ' + i.KE29 + '\n**AP 30**: ' + i.KE30, true)
+      .addField('​', '**HEAT 1**: ' + i.AP1 + '**\nHEAT 2**: ' + i.AP2 + '**\nHEAT 3**: ' + i.AP3 + '\n**HEAT 4**: ' + i.AP4 + '**\nHEAT 5**: ' + i.AP5 + '\n**HEAT 6**: ' + i.AP6 + '\n**HEAT 7**: ' + i.AP7 + '\n**HEAT 8**: ' + i.AP8 + '\n**HEAT 9**: ' + i.AP9 + '**\nHEAT 10**: ' + i.AP10 + '**\nHEAT 11**: ' + i.AP11 + '**\nHEAT 12**: ' + i.AP12 + '**\nHEAT 13**: ' + i.AP13 + '**\nHEAT 14**: ' + i.AP14 + '**\nHEAT 15**: ' + i.AP15  + '\n**HEAT16**: ' + i.AP16 + '**\nHEAT 17**: ' + i.AP17 + '\n**HEAT 18**: ' + i.AP18 + '\n**HEAT 19**: ' + i.AP19 + '\n**HEAT 20**: ' + i.AP20 + '\n**HEAT 21**: ' + i.AP21 + '\n**HEAT 22**: ' + i.AP22 + '\n**HEAT 23**: ' + i.AP23 + '**\nHEAT 24**: ' + i.AP24 + '\n**HEAT 25**: ' + i.AP25 + '\n**HEAT 26**: ' + i.AP26 + '\n**HEAT 27**: ' + i.AP27 + '\n**HEAT 28**: ' + i.AP28 + '\n**HEAT 29**: ' + i.AP29 + '\n**HEAT 30**: ' + i.AP30, true);
 
     message.channel.send(embed);
   });
 
 };
 
-
-
-module.exports.heat = (args, message, heatdata) => {
-
-
-  args[0] = args[0].replaceAll(' ', '');
-  args[0] = args[0].toLowerCase();
-  if (isNaN(args[0])) {
-    message.reply('Please enter an armor value 1 - 25');
-    return;
-  }
-  if (Number(args[0]) > 25 || Number(args[0]) < 1) {
-    message.reply('Please enter an armor value 1 - 25');
-    return;
-  }
-  args[0] = Number(args[0]);
-  args[0] = Math.round(args[0]);
-  const apdata = heatdata.filter((i, index) => {
-    i.ArmorAP = i.ArmorAP.replaceAll('Armor ', '');
-    const armor = i.ArmorAP.toLowerCase();
-    if (armor == args[0]) {
-      return i;
-    }
-  });
-  apdata.forEach((i) => {
-    const embed = new Discord.RichEmbed()
-      .setTitle(i.ArmorAP + ' Armor Damage Table')
-      .setColor('BLUE')
-      .addField('1 - 15', '**AP 1**: ' + i.AP1 + '**\nAP 2**: ' + i.AP2 + '**\nAP 3**: ' + i.AP3 + '\n**AP 4**: ' + i.AP4 + '**\nAP 5**: ' + i.AP5 + '\n**AP 6**: ' + i.AP6 + '\n**AP 7**: ' + i.AP7 + '\n**AP 8**: ' + i.AP8 + '\n**AP 9**: ' + i.AP9 + '**\nAP 10**: ' + i.AP10 + '**\nAP 11**: ' + i.AP11 + '**\nAP 12**: ' + i.AP12 + '**\nAP 13**: ' + i.AP13 + '**\nAP 14**: ' + i.AP14 + '**\nAP 15**: ' + i.AP15, true)
-      .addField('16 - 30', '**AP 16**: ' + i.AP16 + '**\nAP 17**: ' + i.AP17 + '\n**AP 18**: ' + i.AP18 + '\n**AP 19**: ' + i.AP19 + '\n**AP 20**: ' + i.AP20 + '\n**AP 21**: ' + i.AP21 + '\n**AP 22**: ' + i.AP22 + '\n**AP 23**: ' + i.AP23 + '**\nAP 24**: ' + i.AP24 + '\n**AP 25**: ' + i.AP25 + '\n**AP 26**: ' + i.AP26 + '\n**AP 27**: ' + i.AP27 + '\n**AP 28**: ' + i.AP28 + '\n**AP 29**: ' + i.AP29 + '\n**AP 30**: ' + i.AP30, true);
-
-
-    message.channel.send(embed);
-  });
-
-
-};
-
-module.exports.aptable = (args, message) => {
+module.exports.ketable = (args, message) => {
   let title;
   if(isNaN(args[0]) === true || args[0] > 30 || args[0] < 1) {
-    message.reply('Please use a valid HEAT or KE value between 1 and 30').catch(err => { console.log(err);});
+    message.reply('Please use a valid KE value between 1 and 30').catch(err => { console.log(err);});
     return;
   }
 
@@ -466,17 +428,42 @@ module.exports.aptable = (args, message) => {
   });
 
     const embed = new Discord.RichEmbed()
-      .setTitle(args[0] + ' Damage table')
+      .setTitle(args[0] + ' KE Damage table')
       .setColor('GOLD');
-
+    matchingArmor.shift();
     matchingArmor.forEach((i) => {
-        if (i.ArmorAP.replace(/[\s\d]/g, '') == 'AP') {
-          title = 'HEAT';
-        }
-        if(i.ArmorAP.replace(/[\s\d]/g, '') == 'KE') {
-          title = 'KE';
-        }
-        embed.addField(title, '**0 AV**: ' + i.Armor0 + '\n**1 AV**: ' + i.Armor1 + '\n**2 AV**: ' + i.Armor2 + '\n**3 AV**: ' + i.Armor3 + '\n**4 AV**: ' + i.Armor4 + '\n**5 AV**: ' + i.Armor5 + '\n**6 AV**: ' + i.Armor6 + '\n**7 AV**: ' + i.Armor7 + '\n**8 AV**: ' + i.Armor8 + '\n**9 AV**: ' + i.Armor9 + '\n**10 AV**: ' + i.Armor10 + '\n**11 AV**: ' + i.Armor11 + '\n**12 AV**: ' + i.Armor12 + '\n**13 AV**: ' + i.Armor13 + '\n**14 AV**: ' + i.Armor14 + '\n**15 AV**: ' + i.Armor15 + '\n**16 AV**: ' + i.Armor16 + '\n**17 AV**: ' + i.Armor17 + '\n**18 AV**: ' + i.Armor18 + '\n**19 AV**: ' + i.Armor19 + '\n**20 AV**: ' + i.Armor20 + '\n**21 AV**: ' + i.Armor21 + '\n**22 AV**: ' + i.Armor22 + '\n**23 AV**: ' + i.Armor23, true);
+        embed.addField("KE", '**0 AV**: ' + i.Armor0 + '\n**1 AV**: ' + i.Armor1 + '\n**2 AV**: ' + i.Armor2 + '\n**3 AV**: ' + i.Armor3 + '\n**4 AV**: ' + i.Armor4 + '\n**5 AV**: ' + i.Armor5 + '\n**6 AV**: ' + i.Armor6 + '\n**7 AV**: ' + i.Armor7 + '\n**8 AV**: ' + i.Armor8 + '\n**9 AV**: ' + i.Armor9 + '\n**10 AV**: ' + i.Armor10 + '\n**11 AV**: ' + i.Armor11 + '\n**12 AV**: ' + i.Armor12 + '\n**13 AV**: ' + i.Armor13 + '\n**14 AV**: ' + i.Armor14 + '\n**15 AV**: ' + i.Armor15 + '\n**16 AV**: ' + i.Armor16 + '\n**17 AV**: ' + i.Armor17 + '\n**18 AV**: ' + i.Armor18 + '\n**19 AV**: ' + i.Armor19 + '\n**20 AV**: ' + i.Armor20 + '\n**21 AV**: ' + i.Armor21 + '\n**22 AV**: ' + i.Armor22 + '\n**23 AV**: ' + i.Armor23, true);
+
+
+      });
+      message.channel.send(embed).catch(err => {
+        console.log(err + 'Error on line 484 armoryCommands.js');
+      });
+
+
+
+};
+module.exports.heattable = (args, message) => {
+  let title;
+  if(isNaN(args[0]) === true || args[0] > 30 || args[0] < 1) {
+    message.reply('Please use a valid HEAT value between 1 and 30').catch(err => { console.log(err);});
+    return;
+  }
+
+  args[0] = (args[0].replace(/[^\d]/g, ''));
+  const matchingArmor = damage.filter((i, index) => {
+    const replacedarmor = (i.ArmorAP.replace(/[^\d]/g, ''));
+    if (replacedarmor === args[0]) {
+      return i;
+    }
+  });
+
+    const embed = new Discord.RichEmbed()
+      .setTitle(args[0] + ' HEAT Damage table')
+      .setColor('GOLD');
+    matchingArmor.length = matchingArmor.length - 1;
+    matchingArmor.forEach((i) => {
+        embed.addField("HEAT", '**0 AV**: ' + i.Armor0 + '\n**1 AV**: ' + i.Armor1 + '\n**2 AV**: ' + i.Armor2 + '\n**3 AV**: ' + i.Armor3 + '\n**4 AV**: ' + i.Armor4 + '\n**5 AV**: ' + i.Armor5 + '\n**6 AV**: ' + i.Armor6 + '\n**7 AV**: ' + i.Armor7 + '\n**8 AV**: ' + i.Armor8 + '\n**9 AV**: ' + i.Armor9 + '\n**10 AV**: ' + i.Armor10 + '\n**11 AV**: ' + i.Armor11 + '\n**12 AV**: ' + i.Armor12 + '\n**13 AV**: ' + i.Armor13 + '\n**14 AV**: ' + i.Armor14 + '\n**15 AV**: ' + i.Armor15 + '\n**16 AV**: ' + i.Armor16 + '\n**17 AV**: ' + i.Armor17 + '\n**18 AV**: ' + i.Armor18 + '\n**19 AV**: ' + i.Armor19 + '\n**20 AV**: ' + i.Armor20 + '\n**21 AV**: ' + i.Armor21 + '\n**22 AV**: ' + i.Armor22 + '\n**23 AV**: ' + i.Armor23, true);
 
 
       });
