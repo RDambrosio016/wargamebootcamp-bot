@@ -233,11 +233,14 @@ client.on('message', async message => {
       case 'aptable':
         commands.aptable(args, message);
       break;
-    case 'heat':
-      commands.heat(args, message, heatdata);
-      break;
-    case 'ke':
+    case 'armor':
       commands.ke(args, message, heatdata);
+    break;
+    case 'ke':
+      commands.ketable(args, message);
+    break;
+    case 'heat':
+      commands.heattable(args, message);
     break;
 
     case "resetcommands":
