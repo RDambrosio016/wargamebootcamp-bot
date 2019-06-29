@@ -18,7 +18,7 @@ let commoncommands = true;
 const results = [];
 var units = require('./Data/UnitData.json');
 var stringSimilarity = require('string-similarity');
-
+const MSGES = require('./Mongoose/messageSchema.js');
 
 client.once('ready', () => {
   console.log('Bot running in the index file.');
@@ -29,19 +29,6 @@ client.once('ready', () => {
     },
   }); //sets the bot's status to the default status
 });
-
-// fs.createReadStream('./FinalDamageData.csv')
-//   .pipe(csv())
-//   .on('data', (data) => results.push(data))
-//   .on('end', () => {
-//
-//     fs.writeFile('./FinalArmorData.json', JSON.stringify(results), function(err) {
-//     if (err) throw err;
-//     console.log(JSON.stringify(results));
-//     });
-//   });
-
-
 
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
@@ -56,7 +43,15 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 client.on('message', async message => {
 
  message.member = await message.guild.fetchMember(message.author.id);
-
+ if(message.guild.id == '304436901165662209' && !message.author.bot && !message.content.startsWith("!imitate")) {
+  savemessage = new MSGES({
+      message_content: message.content,
+      message_author: message.author.id,
+      message_channel: message.channel,
+  })
+      await savemessage.save();
+      console.log('message saved');
+  }
 
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
