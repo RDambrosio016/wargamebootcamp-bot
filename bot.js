@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-//test
+//tis but a mere test
 const COMMAND_CHAR = '!';
 const client = new Discord.Client();
 const prefix = '!';
