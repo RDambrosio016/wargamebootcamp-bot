@@ -43,16 +43,16 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 client.on('message', async message => {
 
  message.member = await message.guild.fetchMember(message.author.id);
-//  if(message.guild.id == '304436901165662209' && !message.author.bot && !message.content.startsWith("!imitate")) {
-//   savemessage = new MSGES({
-//       message_content: message.content,
-//       message_author: message.author.id,
-//       message_channel: message.channel,
-//   })
-//       await savemessage.save();
-//       console.log('message saved');
-//   }
-
+ if(message.guild.id == '304436901165662209' ) {
+  if(message.author.id == '426117986261139456' || message.author.id == '148830717617373184' || message.author.id == '322561952041795584' || message.author.id == '232989841107845121' || message.author.id == '540716742968737800' || message.author.id == '148830717617373184' || message.author.id == '198236277659795475') {
+      savemessage = new MSGES({
+      message_content: message.content,
+      message_author: message.author.id,
+      message_channel: message.channel,
+      })
+          await savemessage.save();
+  }
+}
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
   }
