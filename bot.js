@@ -231,7 +231,9 @@ client.on('message', async message => {
       commonCommands.botcommands(client, admin);
       break;
 
-    
+    case 'replay': 
+    commonCommands.replay(args, message)
+    break;
     case 'invite':
     commonCommands.invite(message, admin, args);
     break;

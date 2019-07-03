@@ -187,4 +187,85 @@ module.exports.botcommands = (client, admin) => {
         });
   };
 
+  module.exports.replay = (args, message) => {
+    if(message.attachments.first().url == undefined) {
+      message.channel.send('please attach a wargame replay file')
+      return;
+  }
+  const url = (message.attachments.first().url);
+  const fileType = require('file-type');
+
+  fetch(url)
+      .then(res => res.buffer())
+      .then(buffer => {
+          fileType(buffer)
+          content = buffer;
+          const jsonsize = content.readInt16BE(0x32);  
+          let json =  content.slice( 0x38, 0x38 + jsonsize).toString();
+          json = JSON.parse(json);
+          const user1 = Object.values(json)[1];
+          json.game.Map = json.game.Map.replace(/\_/g, ' ');
+          
+
+          const income = {
+              "1":"Very Low -40%",
+              "2":"Low - 20%",
+              "3":"Normal -0%",
+              "4":"High +20%",
+              "5":"Very High +40%"
+          }
+          
+          const map = {
+              "Conquete 2x3 Gangjin":"Mud Fight",
+              "Conquete 2x3 Hwaseong":"Nuclear Winter",
+              "Conquete 3x3 Muju":"Plunjing Valley",
+              "Conquete 2x3 Tohoku Alt":"Paddy Field",
+              "Conquete 3x3 Muju Alt":"Punchbowl",
+              "Conquete 3x3 Marine 3 Reduite Terrestre":"Hell in a very small place",
+              "Conquete 3x3 Highway Small":"Highway to Seoul"
+          }
+          if(map.hasOwnProperty(json.game.Map))
+              json.game.Map = map[json.game.Map];
+
+          if (income.hasOwnProperty(json.game.IncomeRate))
+              json.game.IncomeRate = income[json.game.IncomeRate];
+
+          
+          
+          if(Object.values(json)[3] !== undefined) {
+              message.reply('Only 1v1\'s are supported at this moment')
+              return;
+          }
+
+          let embed = new Discord.RichEmbed()
+              .setTitle(json.game.ServerName)
+              .setDescription(
+               '\n **Map**: ' + json.game.Map + 
+               '\n **Starting Points**: ' + json.game.InitMoney +
+               '\n **Winning Points**: ' + json.game.ScoreLimit +
+               '\n **Game Duration**: ' + (json.game.TimeLimit / 60 + 'm') +
+               '\n **Income Rate**: ' + json.game.IncomeRate)
+              .setColor('ORANGE')
+              .addField(user1.PlayerName, ' **Level**: ' + user1.PlayerLevel + 
+              '\n **Elo / Rank**: ' + user1.PlayerElo + ' | ' + user1.PlayerRank +
+              '\n **Deck**: ' + deck.decode(user1.PlayerDeckContent) + 
+              '\n **Deck Code**: ' + user1.PlayerDeckContent + 
+              '\n **Deck Name**: ' + user1.PlayerDeckName +
+              '\n **Team**: ' + (user1.PlayerAlliance - - 1), true);
+              if(Object.values(json)[2] !== undefined) {
+                  let user2 = Object.values(json)[2];
+                  embed.addField(user2.PlayerName, ' **Level**: ' + user2.PlayerLevel + 
+                      '\n **Elo / Rank**: ' + Math.round(user2.PlayerElo) + ' | ' + user2.PlayerRank +
+                      '\n **Deck**: ' + deck.decode(user2.PlayerDeckContent) + 
+                      '\n **Deck Code**: ' + user2.PlayerDeckContent + 
+                      '\n **Deck Name**: ' + user2.PlayerDeckName +
+                      '\n **Team**: ' + (user2.PlayerAlliance - - 1), true);
+              }
+              message.channel.send(embed);
+              
+         
+      })
+      .then(type => { /* ... */ });
+  }
+
 
