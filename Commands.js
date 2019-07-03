@@ -3,6 +3,7 @@ const help = ('**!duckinfo** - Displays info about the bot, code, and Acknowledg
 const adminhelp = ('List of admin commands: \n**!invite <duration in minutes> <uses>** - Creates an invite link, set duration to zero to make it infinite duration \n **!changelimit <number>** - Changes the limit of matching units to display fully \n **!changedisplaylimit <number>** - Changes the limit of units to be shown in a name list \n **!dynocommands** - Turns on / off the dyno commands (!unspec !rookie, etc)');
 const mongoose = require('mongoose');
 const MSGES = require('./Mongoose/messageSchema.js');
+const deck = require('./Data/Deck.js');
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
