@@ -5,15 +5,7 @@ const mongoose = require('mongoose');
 const MSGES = require('./Mongoose/messageSchema.js');
 const deck = require('./Data/Deck.js');
 
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useNewUrlParser', true);
-mongoose.connect('mongodb+srv://senordickweed21:Fojt%232018@cluster0-pgjfa.mongodb.net/logged_messages?retryWrites=true&w=majority');
-mongoose.connection.on('error', (err) => {
-  console.error(err);
-  console.log('%s MongoDB connection error. Please make sure MongoDB is running.');
-  process.exit();
-});
+
 
 module.exports.userinvite = (message) => {
   message.channel.createInvite({
