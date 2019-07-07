@@ -41,6 +41,11 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 
 
 client.on('message', async message => {
+  
+  if(message.attachments.first())
+  if(message.attachments.first().url.endsWith('.wargamerpl2')) {
+    commonCommands.replay(args, message);
+  }
 
   if (message.author.bot) {
     return; //if the author of the message is the bot, do nothing.
@@ -230,10 +235,6 @@ client.on('message', async message => {
     case "resetcommands":
       commonCommands.botcommands(client, admin);
       break;
-
-    case 'replay': 
-    commonCommands.replay(args, message)
-    break;
     case 'invite':
     commonCommands.invite(message, admin, args);
     break;
