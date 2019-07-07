@@ -41,7 +41,7 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 
 
 client.on('message', async message => {
-  
+  const args = message.content.split(' ');
   if(message.attachments.first())
   if(message.attachments.first().url.endsWith('.wargamerpl2')) {
     commonCommands.replay(args, message);
@@ -55,7 +55,6 @@ client.on('message', async message => {
     message.reply('WHY ARE YOU SUMMONING ME IN DMS MORTAL');
     return;
   }
-  const args = message.content.split(' ');
   const capitalArgs = message.content.split(' ');
   for (let i = args.length - 1; i >= 0; i--) {
     args[i] = args[i];
