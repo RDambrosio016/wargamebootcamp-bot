@@ -191,7 +191,6 @@ module.exports.botcommands = (client, admin) => {
           json = JSON.parse(json);
           const user1 = Object.values(json)[1];
           json.game.Map = json.game.Map.replace(/\_/g, ' ');
-          console.log(json);
 
           const income = {
               "1":"Very Low -40%",
@@ -246,7 +245,6 @@ module.exports.botcommands = (client, admin) => {
                       '\n **Deck Name**: ' + user2.PlayerDeckName +
                       '\n **Team**: ' + (user2.PlayerAlliance - - 1), true);
               }
-              message.channel.send('test');
               message.channel.send(embed);
               
          
