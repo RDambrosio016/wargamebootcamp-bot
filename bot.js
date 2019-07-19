@@ -355,6 +355,14 @@ client.on('message', message => {
     message.channel.send('here is the map', {
       files: ['./Pictures/Map Pictures/nuclear.png'],
     });
+  } else if (message.content.startsWith(`!hopandglory`)) {
+    message.channel.send('here is the map', {
+      files: ['./Pictures/Map Pictures/hopandglory.png'],
+    });
+  } else if (message.content.startsWith(`!paddy2v2`)) {
+    message.channel.send('here is the map', {
+      files: ['./Pictures/Map Pictures/paddy2v2.png'],
+    });
   }
 });
 client.login(token);
