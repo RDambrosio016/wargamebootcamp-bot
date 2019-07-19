@@ -335,7 +335,7 @@ client.on('message', message => {
     message.channel.send('here is the map', {
       files: ['./Pictures/Map Pictures/plunjing.png'],
     });
-  } else if (message.content.startsWith('!paddy')) {
+  } else if (message.content == '!paddy') {
     message.channel.send('here is the map', {
       files: ['./Pictures/Map Pictures/paddy.png'],
     });
