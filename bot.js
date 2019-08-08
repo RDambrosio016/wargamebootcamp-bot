@@ -91,7 +91,7 @@ client.on('message', async message => {
   // write commands below this line ---------------------------------------------------
 
 
-  switch (commandName) {
+  switch (commandName.toLowerCase()) {
 
     case 'dynocommands':
       if (!admin) {
