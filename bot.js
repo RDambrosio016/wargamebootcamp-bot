@@ -66,6 +66,7 @@ client.on('message', async message => {
     return;
   }
   commandName = commandName.slice(1);
+  commandName = commandName.toLowerCase();
 
   const adminRoles = ['376252102843826176', '577607802197901332', '584124615647821857']; //defines the roles considered as admins and returns either true or false with 'admin'
   let admin;
@@ -91,7 +92,7 @@ client.on('message', async message => {
   // write commands below this line ---------------------------------------------------
 
 
-  switch (commandName.toLowerCase()) {
+  switch (commandName) {
 
     case 'dynocommands':
       if (!admin) {
