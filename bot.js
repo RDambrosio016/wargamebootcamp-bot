@@ -205,6 +205,10 @@ client.on('message', async message => {
        case 'userinvite':
        commonCommands.userinvite(message);
        break;
+    case 'tempflip':
+      let result = Math.floor(Math.random() * 2)
+      message.channel.send(result == 1 ? 'Heads' : "Tails")
+      break;
       case 'git':
       commands.git(args, message, limit, displaylimit);
       break;
