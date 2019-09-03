@@ -76,11 +76,11 @@ client.on('message', async message => {
   for (let i = adminRoles.length - 1; i >= 0; i--) {
     if(!message.member.roles) {
        admin = false;
-       return;
+       break;
     }
     if (message.member.roles.has(adminRoles[i])) {
       admin = true;
-      return;
+      break;
     }
     admin = false;
   }
