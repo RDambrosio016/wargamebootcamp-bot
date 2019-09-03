@@ -44,6 +44,7 @@ client.on('error', err => {
 });
 client.on('message', async message => {
 
+  message.member = await message.guild.fetchMember(message.author.id)
   const args = message.content.split(' ');
   if(message.attachments.first())
   if(message.attachments.first().url.endsWith('.wargamerpl2') &&  message.channel.id !== '578977435710914560' && message.channel.id !== '578603904183435294' && message.channel.id !== '584806407186939928' && message.channel.id !== '615451491821420544') {
@@ -75,11 +76,11 @@ client.on('message', async message => {
   for (let i = adminRoles.length - 1; i >= 0; i--) {
     if(!message.member.roles) {
        admin = false;
-       break;
+       return;
     }
     if (message.member.roles.has(adminRoles[i])) {
       admin = true;
-      break;
+      return;
     }
     admin = false;
   }
