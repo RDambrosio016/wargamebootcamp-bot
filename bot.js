@@ -73,6 +73,10 @@ client.on('message', async message => {
   const adminRoles = ['376252102843826176', '577607802197901332', '584124615647821857']; //defines the roles considered as admins and returns either true or false with 'admin'
   let admin;
   for (let i = adminRoles.length - 1; i >= 0; i--) {
+    if(!message.member.roles) {
+       admin = false;
+       break;
+    }
     if (message.member.roles.has(adminRoles[i])) {
       admin = true;
       break;
