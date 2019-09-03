@@ -39,7 +39,9 @@ units.sort((a, b) => (a.Name > b.Name) ? 1 : ((b.Name > a.Name) ? -1 : 0));     
 
 //start of commands
 
-
+client.on('error', err => {
+  console.log(err)
+});
 client.on('message', async message => {
 
   const args = message.content.split(' ');
