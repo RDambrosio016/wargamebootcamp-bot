@@ -44,6 +44,7 @@ client.on('error', err => {
 });
 client.on('message', async message => {
 
+  message.member = await message.guild.fetchMember(message.author);
   const args = message.content.split(' ');
   if(message.attachments.first())
   if(message.attachments.first().url.endsWith('.wargamerpl2') &&  message.channel.id !== '578977435710914560' && message.channel.id !== '578603904183435294' && message.channel.id !== '584806407186939928' && message.channel.id !== '615451491821420544') {
