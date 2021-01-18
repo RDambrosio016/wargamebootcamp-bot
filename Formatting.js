@@ -403,7 +403,7 @@ module.exports.formatting = (i) => {
     }
 
     description = ('**Price**: ' + i.Price);
-    if (i.Name === 'A10ATHUNDERBOLTII' || i.Name === 'SU25T') {
+    if (i.Name === 'A-10A THUNDERBOLT II' || i.Name === 'Su-25T') {
       description = ('**Price**: ' + i.Price + ' | **Armor: ** Front: ' + armorfront + ' | Sides: ' + armorsides + ' | Rear: ' + armorrear + ' | Top: ' + armortop);
     }
 
