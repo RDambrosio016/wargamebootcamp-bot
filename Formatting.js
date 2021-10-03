@@ -125,7 +125,7 @@ module.exports.formatting = (i) => {
     'Finland': ':flag_fi:',
     'East Germany': '<:unknown:581897376000638996>',
     'China': ':flag_cn:',
-    'North Korea': '<:download:581897628959375372>',
+    'North Korea': ':flag_kp:',
 
   };
 
@@ -144,6 +144,7 @@ module.exports.formatting = (i) => {
     'Denmark': ':flag_dk:',
     'South Korea': ':flag_kr:',
     'Norway': ':flag_no:',
+    'South Africa': ':flag_za:',
 
   };
 
